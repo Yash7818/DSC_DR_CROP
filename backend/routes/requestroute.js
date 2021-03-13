@@ -45,6 +45,37 @@ router.get("/getrequest", isAuth, async (req, res) => {
   }
 });
 
+router.get("/getrequest/:id", isAuth, async (req, res) => {
+  try {
+    const reqid = req.params.id;
+    const partrequest = await Request.findById({ reqid });
+    if (partrequest) {
+      res.send(partrequest);
+    }
+  } catch (e) {
+    res.send(e);
+  }
+});
+
+router.patch("/getrequest/:id", isAuth, async (req, res) => {
+  try {
+    const reqid = req.params.id;
+    const partrequest = await Request.findById({ reqid });
+    if (partrequest) {
+      const changestatus = req.body.status;
+      partrequest.status = changestatus;
+      const updatedRequest = await partrequest.save();
+
+      if (updatedRequest) {
+        res.status(200).send({ updatedRequest });
+      }
+    }
+  } catch (e) {
+    res.send(e);
+    console.log(e);
+  }
+});
+
 router.get("/userrequest", isAuth, async (req, res) => {
   try {
     const userrequest = await Request.find({

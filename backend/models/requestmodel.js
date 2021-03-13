@@ -12,7 +12,6 @@ const requestSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    required: true,
   },
   language: {
     type: String,
@@ -21,7 +20,6 @@ const requestSchema = new mongoose.Schema({
   status: {
     type: String,
     default: "incomplete",
-    required: true,
   },
   requestedBy: {
     type: ObjectId,

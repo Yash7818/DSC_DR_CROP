@@ -12,7 +12,6 @@ import socket from "socket.io";
 import http from "http";
 import path from "path";
 
-
 // path.join(__dirname, dist);
 
 dotenv.config();
@@ -25,7 +24,7 @@ mongoose
     useCreateIndex: true,
   })
   .then(() => console.log("Mongoose Connected"))
-  .catch((error) => console.log(error.reason));
+  .catch((error) => console.log(error));
 
 const app = express();
 app.use(bodyParser.json());
