@@ -255,7 +255,7 @@ function Home(){
                     Find solution for your preciuos crops at your <span style={{color:"#08FF21"}}> door step</span>.
                     </Typography>
                     <Grid>
-                        <Button variant="outlined" style={{color:"#fff",width:"fit-content",height:"2.5em",fontSize:"1em",fontWeight:"700",border:"2px solid #fff",borderRadius:"3em"}} >{userInfo || expertInfo ?<Link style={{textDecoration:"none",color:"#fff",fontSize:"1em"}} to="/userProfile">Go to Profile</Link>:<div onClick={handleOpen}>Get Started</div>}</Button>
+                        <Button variant="outlined" style={{color:"#fff",width:"fit-content",height:"2.5em",fontSize:"1em",fontWeight:"700",border:"2px solid #fff",borderRadius:"3em"}} >{userInfo || expertInfo ?<Link style={{textDecoration:"none",color:"#fff",fontSize:"1em"}} to="/userProfile">Go to Profile</Link>:<Link to="/login" style={{textDecoration:"none",color:"#fff"}}><div onClick={handleOpen}>Get Started</div></Link>}</Button>
                     </Grid>
                 </Grid>
             </Grid>
