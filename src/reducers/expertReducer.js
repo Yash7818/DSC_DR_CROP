@@ -8,7 +8,7 @@ import {
   EXPERT_GOOGLE_REQUEST,
   EXPERT_GOOGLE_SUCCESS,
   EXPERT_GOOGLE_FAIL,
-} from "../constants/expertConstants";
+} from "../constants/expertConstant";
 
 function expertSigninReducer(state = {}, action) {
   switch (action.type) {
