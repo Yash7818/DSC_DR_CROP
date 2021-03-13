@@ -5,7 +5,10 @@ import {
   EXPERT_REGISTER_REQUEST,
   EXPERT_REGISTER_SUCCESS,
   EXPERT_REGISTER_FAIL,
-} from "../constants/expertConstant";
+  EXPERT_GOOGLE_REQUEST,
+  EXPERT_GOOGLE_SUCCESS,
+  EXPERT_GOOGLE_FAIL,
+} from "../constants/expertConstants";
 
 function expertSigninReducer(state = {}, action) {
   switch (action.type) {
@@ -33,4 +36,21 @@ function expertRegisterReducer(state = {}, action) {
   }
 }
 
-export { expertSigninReducer, expertRegisterReducer };
+function expertGoogleSigninReducer(state = {}, action) {
+  switch (action.type) {
+    case EXPERT_GOOGLE_REQUEST:
+      return { loading: true };
+    case EXPERT_GOOGLE_SUCCESS:
+      return { loading: false, expertInfo: action.payload };
+    case EXPERT_GOOGLE_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+}
+
+export {
+  expertSigninReducer,
+  expertRegisterReducer,
+  expertGoogleSigninReducer,
+};
