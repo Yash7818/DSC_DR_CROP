@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,OAAO,CAAA;EACH,OAAO,EAAE,KAAK;CACjB",
+    "sources": [
+        "userprofile.module.scss"
+    ],
+    "names": [],
+    "file": "userprofile.module.css"
+}
