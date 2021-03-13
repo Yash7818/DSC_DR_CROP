@@ -9,6 +9,7 @@ router.post("/cropdetail", isAuth, async (req, res) => {
       imgLink: req.body.imgLink,
       diseaseName: req.body.diseaseName,
       solution: req.body.solution,
+      percentage: req.body.percentage,
       postedBy: req.user,
     });
     console.log(crop);
@@ -19,6 +20,7 @@ router.post("/cropdetail", isAuth, async (req, res) => {
         imgLink: newcrop.imgLink,
         diseaseName: newcrop.diseaseName,
         solution: newcrop.solution,
+        percentage: newcrop.percentage,
         postedBy: newcrop.user,
       });
     }
@@ -34,7 +36,7 @@ router.get("/cropdetail", isAuth, async (req, res) => {
     //console.log(id);
     const allcrop = await Crop.find({
       postedBy: id,
-    }).populate("postedBy", "_id imgLink diseaseName solution");
+    }).populate("postedBy", "_id imgLink diseaseName percentage solution");
     //console.log(allcrop);
 
     // Remember allcrop is an array !!
