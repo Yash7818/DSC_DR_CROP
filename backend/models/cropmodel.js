@@ -16,6 +16,9 @@ const cropSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    percentage: {
+      type: Number,
+    },
     postedBy: {
       type: ObjectId,
       ref: "User",
