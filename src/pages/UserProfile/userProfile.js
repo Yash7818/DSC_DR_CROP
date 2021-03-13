@@ -12,6 +12,7 @@ import {makeStyles,createMuiTheme,ThemeProvider} from '@material-ui/core/styles'
 
 import NavBar from '../../components/Navbar';
 import Styles from './userprofile.module.css';
+import { useSelector } from 'react-redux';
 
 const theme = createMuiTheme({
     palette: {
@@ -56,12 +57,15 @@ const useStyles = makeStyles((theme)=>({
 export default function UserProfile() {
     
     const classes  = useStyles();
+    const userSignin = useSelector(state=>state.userSignin);
+    const {loading,userInfo,error} = userSignin;
+
 
     return(
         <div>
             <ThemeProvider theme={theme}>
             <NavBar />
-                <Grid item container alignItems="center" justify="center" className={Styles.avatar}>
+                <Grid item container alignItems="center" justify="center" direction="column" className={Styles.avatar}>
                 <Badge
                    overlap="circle"
                    anchorOrigin={{
@@ -72,6 +76,9 @@ export default function UserProfile() {
                    >
                      <Avatar className={classes.avatar}></Avatar>
                      </Badge>
+                <Typography align="center" style={{color:"#fff",fontSize:"1.5em",marginTop:"1em"}}>
+                    @{userInfo.name}
+                </Typography>
                 </Grid> 
                 <Grid container item style={{padding:"1em",color:"#fff"}} >
                     <Grid className={classes.butarea}>

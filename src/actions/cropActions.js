@@ -16,19 +16,18 @@ import axios from "axios";
 
 const saveCrop = (crop) => async (dispatch, getstate) => {
   try {
+
     dispatch({ type: CROP_SAVE_REQUEST, payload: crop });
     console.log(crop);
     const {
       userSignin: { userInfo },
     } = getstate();
-    if (!crop._id) {
       const { data } = await axios.post("/api/crop/cropdetail", crop, {
         headers: {
           Authorization: "Bearer " + userInfo.token,
         },
       });
       dispatch({ type: CROP_SAVE_SUCCESS, payload: data });
-    }
   } catch (e) {
     dispatch({ type: CROP_SAVE_FAIL, payload: e });
   }

@@ -18,6 +18,7 @@ import {
   requestListReducer,
   requestUpdateOneReducer,
 } from "./reducers/requestReducer";
+import { cropSaveReducer } from "./reducers/cropReducer";
 
 const userInfo = Cookie.getJSON("userInfo") || null;
 const expertInfo = Cookie.getJSON("expertInfo") || null;
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   requestListOne: requestListOneReducer,
   requestList: requestListReducer,
   requestUpdate: requestUpdateOneReducer,
+  cropSave:cropSaveReducer
 });
 const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENTION_COMPOSE__ || compose;
 const store = createStore(

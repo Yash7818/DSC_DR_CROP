@@ -10,17 +10,17 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
+
+import NavBar from '../../components/Navbar';
 const chatStyle = makeStyles({
   root: {
-    height: "70%",
+    height: "100%",
     width: "100%",
   },
   innerContainer: {
     backgroundColor: "#FFFFF",
-    borderRadius: "8px",
-    height: "60%",
-    width: "60%",
-    border: "2px solid lightblue",
+    height: "100%",
+    width: "100%",
   },
 });
 
@@ -66,6 +66,8 @@ const Chat = ({ location }) => {
   const classes = chatStyle();
 
   return (
+    <>
+    <NavBar/>
     <Grid
       container
       direction="row"
@@ -88,6 +90,7 @@ const Chat = ({ location }) => {
         />
       </Grid>
     </Grid>
+    </>
   );
 };
 

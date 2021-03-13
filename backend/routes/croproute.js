@@ -11,7 +11,7 @@ router.post("/cropdetail", isAuth, async (req, res) => {
       solution: req.body.solution,
       postedBy: req.user,
     });
-
+    console.log(crop);
     const newcrop = await crop.save();
     if (newcrop) {
       res.send({
