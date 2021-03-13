@@ -7,6 +7,7 @@ import userRoute from "./routes/userRoute";
 import expertRoute from "./routes/expertroute";
 import cropRoute from "./routes/croproute";
 import requestRoute from "./routes/requestroute";
+import { addUser, removeUser, getUser, getUsersInRoom } from "./userchat";
 import Cors from "cors";
 import socket from "socket.io";
 import http from "http";
@@ -36,7 +37,11 @@ app.use("/api/crop", cropRoute);
 app.use("/api/request", requestRoute);
 
 const server = http.createServer(app);
-const io = socket(server);
+const io = socket(server, {
+  cors: {
+    origin: "*",
+  },
+});
 
 const users = {};
 
@@ -83,6 +88,51 @@ io.on("connection", (socket) => {
     }
   });
 });
+
+io.on("connect", (socket) => {
+  socket.on("join", ({ name, room }, cb) => {
+    const { error, user } = addUser({ id: socket.id, name, room });
+    if (error) return cb(error);
+
+    socket.join(user.room);
+
+    socket.emit("message", {
+      user: "Admin",
+      text: `${user.name} , Welcome to the Chat`,
+    });
+    socket.broadcast
+      .to(user.room)
+      .emit("message", { user: "Admin", text: `${user.name} has joined !!` });
+
+    io.to(user.room).emit("roomData", {
+      room: user.room,
+      users: getUsersInRoom(user.room),
+    });
+    cb();
+  });
+
+  socket.on("sendMessage", (message, cb) => {
+    const user = getUser(socket.id);
+    io.to(user.room).emit("message", { user: user.name, text: message });
+    cb();
+  });
+
+  socket.on("disconnect", () => {
+    const user = removeUser(socket.id);
+
+    if (user) {
+      io.to(user.room).emit("message", {
+        user: "Admin",
+        text: `${user.name} has left `,
+      });
+      io.to(user.room).emit("roomData", {
+        room: user.room,
+        users: getUsersInRoom(user.room),
+      });
+    }
+  });
+});
+
 server.listen(5000, () => {
   console.log("server started at 5000");
 });
