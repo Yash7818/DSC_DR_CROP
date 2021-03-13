@@ -1,0 +1,153 @@
+[
+    {
+        "id":0,
+        "cropname":"cherry",
+        "diseases": [
+            {
+                "diseaseid":0,
+                "name":"Powdery Mildew",
+                "treatment":"Apply sulfur or copper-based fungicides to prevent infection of susceptible plants. For best results, apply early or at first sign of disease. Spray all plant parts thoroughly and repeat at 7-10 day intervals up to the day of harvest.",
+                "sourceURL":"https://www.planetnatural.com/pest-problem-solver/plant-disease/powdery-mildew/"
+            },
+            {
+                "diseaseid":1,
+                "name":"Healthy",
+                "treatment":"No disease detected, your plant is healthy"
+            }
+        ]
+    },
+    {
+        "id":1,
+        "cropname":"Strawberry",
+        "diseases":[
+            {
+                "diseaseid":0,
+                "name":"Leaf Scortch",
+                "treatment":"Proper plant spacing, garden sanitization and removal of infected garden debris.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/fruits/strawberry/strawberries-with-leaf-scorch.htm" 
+            },
+            {
+                "diseaseid":1,
+                "name":"Healthy",
+                "treatment":"No disease detected, your plant is healthy"
+            }
+        ]
+    },
+    {
+        "id":2,
+        "cropname":"Potato",
+        "diseases":[
+            {
+                "diseaseid":0,
+                "name":"Late Blight",
+                "treatment":"Apply a copper based fungicide (2 oz/ gallon of water) every 7 days or less, following heavy rain or when the amount of disease is increasing rapidly. If possible, time applications so that at least 12 hours of dry weather follows application",
+                "sourceURL":"https://www.planetnatural.com/pest-problem-solver/plant-disease/late-blight/"
+            },
+            {
+                "diseaseid":1,
+                "name":"Early Blight",
+                "treatment":"Avoid overhead irrigation and allow for sufficient aeration between plants to allow the foliage to dry as quickly as possible. Practice a 2-year crop rotation. That is, do not replant potatoes or other crops in this family for 2 years after a potato crop has been harvested. ",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/potato/potato-early-blight-treatment.htm" 
+            },
+            {
+                "diseaseid":2,
+                "name":"Healthy",
+                "treatment":"No disease detected, your plant is healthy"
+            }
+        ]
+    },
+    {
+        "id":3,
+        "cropname":"Corn",
+        "diseases": [
+            {
+                "diseaseid":0,
+                "name":"Gray Leaf Spot",
+                "treatment":"During the growing season, foliar fungicides can be used to manage gray leaf spot outbreaks.",
+                "sourceURL":"https://www.pioneer.com/us/agronomy/gray_leaf_spot_cropfocus.html"
+            },
+            {
+                "diseaseid":1,
+                "name":"Common Rust",
+                "treatment":"If the corn begins to show symptoms of infection, immediately spray with a fungicide. The fungicide is most effective when started at the first sign of infection.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/corn/corn-rust-fungus-control.htm"
+            },
+            {
+                "diseaseid":2,
+                "name":"Northern Leaf Blight",
+                "treatment":"When you grow corn, make sure it does not stay wet for long periods of time. The fungus that causes this infection needs between six and 18 hours of leaf wetness to develop. Plant corn with enough space for airflow and water in the morning so leaves can dry throughout the day.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/corn/northern-corn-leaf-blight-control.htm"
+            },
+            {
+                "diseaseid":3,
+                "name":"Healthy",
+                "treatment":"No disease detected, your plant is healthy"
+            }
+        ]
+    },
+    {
+        "id":4,
+        "cropname":"Tomato",
+        "diseases":[
+            {
+                "diseaseid":0,
+                "name":"Bacterial Spot",
+                "treatement":"A plant with bacterial spot cannot be cured.  Remove symptomatic plants from the field or greenhouse to prevent the spread of bacteria to healthy plants.  Burn, bury or hot compost the affected plants and DO NOT eat symptomatic fruit",
+                "sourceURL":"https://hort.extension.wisc.edu/articles/bacterial-spot-of-tomato/"
+            },
+            {
+                "diseaseid":1,
+                "name":"Early Blight",
+                "treatement":"For best control, apply copper-based fungicides early, two weeks before disease normally appears or when weather forecasts predict a long period of wet weather. Alternatively, begin treatment when disease first appears, and repeat every 7-10 days for as long as needed.",
+                "sourceURL":"https://www.planetnatural.com/pest-problem-solver/plant-disease/early-blight/"
+            },
+            {
+                "diseaseid":2,
+                "name":"Late Blight",
+                "treatement":"Sanitation is the first step in controlling tomato late blight. Clean up all debris and fallen fruit from the garden area. This is particularly essential in warmer areas where extended freezing is unlikely and the late blight tomato disease may overwinter in the fallen fruit.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/tomato/tomato-late-blight.htm"
+            },
+            {
+                "diseaseid":3,
+                "name":"Leaf Mold",
+                "treatement":"When planting, use only certified disease-free seed or treated seed. Remove and destroy all crop debris post-harvest. Sanitize the greenhouse between crop seasons. Use fans and avoid overhead watering to minimize leaf wetness. Also, stake and prune plants to increase ventilation.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/tomato/managing-tomato-leaf-mold.htm"
+            },
+            {
+                "diseaseid":4,
+                "name":"Leaf Spot",
+                "treatement":"Treating septoria leaf spot disease after it appears is achieved with fungicides. The chemicals need to be applied on a seven- to ten-day schedule to be effective.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/tomato/septoria-leaf-spot.htm"
+            },
+            {
+                "diseaseid":5,
+                "name":"Spider Mites",
+                "treatement":"Use the Bug Blaster to wash plants with a strong stream of water and reduce pest numbers.",
+                "sourceURL":"https://www.planetnatural.com/pest-problem-solver/houseplant-pests/spider-mite-control/"
+            },
+            {
+                "diseaseid":6,
+                "name":"Target Spot",
+                "treatement":"Remove old plant debris at the end of the growing season; otherwise, the spores will travel from debris to newly planted tomatoes in the following growing season, thus beginning the disease anew. Dispose of the debris properly and don’t place it on your compost pile unless you’re sure your compost gets hot enough to kill the spores.",
+                "sourceURL":"https://www.gardeningknowhow.com/edible/vegetables/tomato/target-spot-on-tomatoes.htm"
+            },
+            {
+                "diseaseid":7,
+                "name":"Yellow Leaf Curl Virus",
+                "treatement":"Plants that show signs of the virus after 3-4 weeks of transplanting should be bagged (to prevent the whiteflies leaving), uprooted and burned to reduce spread of the virus.",
+                "sourceURL":"https://www.plantwise.org/KnowledgeBank/factsheetforfarmers/20137804485"
+            },
+            {
+                "diseaseid":8,
+                "name":"Mosaic Virus",
+                "treatement":"Remove all perennial weeds, using least-toxic herbicides, within 100 yards of your garden plot.The virus can be spread through human activity, tools and equipment. Frequently wash your hands and disinfect garden tools, stakes, ties, pots, greenhouse benches, etc. (one part bleach to 4 parts water) to reduce the risk of contamination.",
+                "sourceURL":"https://www.planetnatural.com/pest-problem-solver/plant-disease/mosaic-virus/"
+            },
+            {
+                "diseaseid":9,
+                "name":"Healthy",
+                "treatement":"No disease detected, your plant is healthy"
+            }
+        ]
+    }
+]
