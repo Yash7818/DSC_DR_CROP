@@ -3,6 +3,9 @@ import Expert from "../models/expertmodel";
 import { getToken, isAuth } from "../utils";
 import bcrypt from "bcryptjs";
 const router = express.Router();
+import { OAuth2Client } from "google-auth-library";
+import config from "../config/config";
+const client = new OAuth2Client(config.CLIENT_ID);
 
 router.post("/registerexpert", async (req, res) => {
   const inexpert = await Expert.findOne({
@@ -56,6 +59,51 @@ router.post("/loginexpert", async (req, res) => {
     }
   } else {
     res.status(401).send({ error: "Invalid Credentials" });
+  }
+});
+
+router.post("/googlelogin", async (req, res) => {
+  const { tokenId } = req.body;
+  try {
+    const verifiedUser = await client.verifyIdToken({
+      idToken: tokenId,
+      audience: config.CLIENT_ID,
+    });
+    const { email_verified, name, email } = verifiedUser.payload;
+    console.log(verifiedUser.payload);
+
+    if (email_verified) {
+      const googleUser = await Expert.findOne({ email });
+      if (googleUser) {
+        res.send({
+          _id: googleUser.id,
+          name: googleUser.name,
+          email: googleUser.email,
+          token: getToken(googleUser),
+        });
+      } else {
+        let googlePassword = email + config.JWT_SECRET;
+        const hashedGooglePassword = await bcrypt.hash(googlePassword, 8);
+        let googleUser = new Expert({
+          name,
+          email,
+          password: hashedGooglePassword,
+        });
+
+        const newUser = await googleUser.save();
+        if (newUser) {
+          res.send({
+            _id: newUser._id,
+            name: newUser.name,
+            email: newUser.email,
+            password: newUser.password,
+            token: getToken(newUser),
+          });
+        }
+      }
+    }
+  } catch (err) {
+    res.send(err);
   }
 });
 
