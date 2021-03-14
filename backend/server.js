@@ -14,6 +14,7 @@ import http from "http";
 import path from "path";
 const PORT = process.env.PORT || 5000;
 
+console.log(PORT);
 // path.join(__dirname, dist);
 
 dotenv.config();
