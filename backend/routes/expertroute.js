@@ -1,10 +1,10 @@
+import { OAuth2Client } from "google-auth-library";
+import config from "../config/config";
 import express from "express";
 import Expert from "../models/expertmodel";
 import { getToken, isAuth } from "../utils";
 import bcrypt from "bcryptjs";
 const router = express.Router();
-import { OAuth2Client } from "google-auth-library";
-import config from "../config/config";
 const client = new OAuth2Client(config.CLIENT_ID);
 
 router.post("/registerexpert", async (req, res) => {

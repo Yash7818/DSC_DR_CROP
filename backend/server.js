@@ -12,11 +12,12 @@ import Cors from "cors";
 import socket from "socket.io";
 import http from "http";
 import path from "path";
+const PORT = process.env.PORT || 5000;
 
 // path.join(__dirname, dist);
 
 dotenv.config();
-const mongodbUrl = config.MONGODB_URL;
+const mongodbUrl = process.env.MONGODB_URL || config.MONGODB_URL;
 
 mongoose
   .connect(mongodbUrl, {
@@ -133,6 +134,14 @@ io.on("connect", (socket) => {
   });
 });
 
-server.listen(5000, () => {
-  console.log("server started at 5000");
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("../build"));
+
+  app.get("*", (req, res) => {
+    res.sendfile(path.join(__dirname, "build", "index.html"));
+  });
+}
+
+server.listen(PORT, () => {
+  console.log("server started at " + PORT);
 });

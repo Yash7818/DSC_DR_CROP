@@ -25,6 +25,7 @@ const saveRequest = (query) => async (dispatch, getstate) => {
         Authorization: "Bearer " + userInfo.token,
       },
     });
+    console.log(data);
     dispatch({ type: REQ_SAVE_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: REQ_SAVE_FAIL, payload: e });
