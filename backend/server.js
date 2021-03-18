@@ -30,11 +30,16 @@ mongoose
 const app = express();
 app.use(bodyParser.json());
 app.use(Cors());
-
+app.use(express.static('../build'));
 app.use("/api/users", userRoute);
 app.use("/api/expert", expertRoute);
 app.use("/api/crop", cropRoute);
 app.use("/api/request", requestRoute);
+
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname+"../build/index.html"));
+});
 
 const server = http.createServer(app);
 const io = socket(server, {
@@ -133,6 +138,8 @@ io.on("connect", (socket) => {
   });
 });
 
-server.listen(5000, () => {
-  console.log("server started at 5000");
+const port = process.env.PORT || 5000;
+
+server.listen(port, () => {
+  console.log(`server started at ${port}`);
 });
