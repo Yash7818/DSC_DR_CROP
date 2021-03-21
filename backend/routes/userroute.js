@@ -103,7 +103,7 @@ router.post("/googlelogin", async (req, res) => {
       }
     }
   } catch (err) {
-    res.status(404).send({ error: "User didnt match" });
+    res.status(404).send({ error: "User didnt login" });
   }
 });
 
