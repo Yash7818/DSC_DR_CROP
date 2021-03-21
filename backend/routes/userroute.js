@@ -33,7 +33,7 @@ router.post("/register", async (req, res) => {
       });
     }
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "User didn't registered" });
     console.log(e);
   }
 });
@@ -103,7 +103,7 @@ router.post("/googlelogin", async (req, res) => {
       }
     }
   } catch (err) {
-    res.send(err);
+    res.status(404).send({ error: "User didnt match" });
   }
 });
 
