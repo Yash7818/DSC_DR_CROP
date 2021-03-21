@@ -29,7 +29,7 @@ const update = ({ userId, name, email, password, fd }) => async (
   });
   try {
     const { data } = await Axios.put(
-      "/api/users/" + userId,
+      "https://dr-crop-backend.azurewebsites.net/api/users/" + userId,
       { name, email, password, fd },
       {
         headers: {
@@ -50,7 +50,12 @@ const signin = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { data } = await Axios.post("/api/users/login", { email, password });
+    const {
+      data,
+    } = await Axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/users/login",
+      { email, password }
+    );
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
     Cookie.set("userInfo", JSON.parse(JSON.stringify(data)));
   } catch (e) {
@@ -63,11 +68,14 @@ const register = (name, email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { data } = await Axios.post("/api/users/register", {
-      name,
-      email,
-      password,
-    });
+    const { data } = await Axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/users/register",
+      {
+        name,
+        email,
+        password,
+      }
+    );
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     Cookie.set("userInfo", JSON.parse(JSON.stringify(data)));
   } catch (e) {
@@ -81,9 +89,12 @@ const googleauth = (tokenId) => async (dispatch) => {
     payload: { tokenId },
   });
   try {
-    const { data } = await Axios.post("/api/users/googlelogin", {
-      tokenId,
-    });
+    const { data } = await Axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/users/googlelogin",
+      {
+        tokenId,
+      }
+    );
     console.log(data);
     dispatch({ type: USER_GOOGLE_SUCCESS, payload: data });
     Cookie.set("userInfo", JSON.parse(JSON.stringify(data)));

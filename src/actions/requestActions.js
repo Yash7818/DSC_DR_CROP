@@ -20,11 +20,15 @@ const saveRequest = (query) => async (dispatch, getstate) => {
     const {
       userSignin: { userInfo },
     } = getstate();
-    const { data } = await axios.post("/api/request/sendrequest", query, {
-      headers: {
-        Authorization: "Bearer " + userInfo.token,
-      },
-    });
+    const { data } = await axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/request/sendrequest",
+      query,
+      {
+        headers: {
+          Authorization: "Bearer " + userInfo.token,
+        },
+      }
+    );
     console.log(data);
     dispatch({ type: REQ_SAVE_SUCCESS, payload: data });
   } catch (e) {
@@ -38,11 +42,14 @@ const listRequest = () => async (dispatch, getstate) => {
     const {
       expertSignin: { expertInfo },
     } = getstate();
-    const { data } = await axios.get("/api/request/getrequest", {
-      headers: {
-        Authorization: "Bearer " + expertInfo.token,
-      },
-    });
+    const { data } = await axios.get(
+      "https://dr-crop-backend.azurewebsites.net/api/request/getrequest",
+      {
+        headers: {
+          Authorization: "Bearer " + expertInfo.token,
+        },
+      }
+    );
     dispatch({ type: REQ_LIST_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: REQ_LIST_FAIL, payload: e });
@@ -55,11 +62,15 @@ const listOneRequest = (requestId) => async (dispatch, getstate) => {
     const {
       expertSignin: { expertInfo },
     } = getstate();
-    const { data } = await axios.get("/api/request/getrequest/" + requestId, {
-      headers: {
-        Authorization: "Bearer " + expertInfo.token,
-      },
-    });
+    const { data } = await axios.get(
+      "https://dr-crop-backend.azurewebsites.net/api/request/getrequest/" +
+        requestId,
+      {
+        headers: {
+          Authorization: "Bearer " + expertInfo.token,
+        },
+      }
+    );
     dispatch({ type: REQ_LIST_ONE_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: REQ_LIST_ONE_FAIL, payload: e });
@@ -72,11 +83,15 @@ const updateOneRequest = (requestId) => async (dispatch, getstate) => {
     const {
       expertSignin: { expertInfo },
     } = getstate();
-    const { data } = await axios.patch("/api/request/getrequest/" + requestId, {
-      headers: {
-        Authorization: "Bearer " + expertInfo.token,
-      },
-    });
+    const { data } = await axios.patch(
+      "https://dr-crop-backend.azurewebsites.net/api/request/getrequest/" +
+        requestId,
+      {
+        headers: {
+          Authorization: "Bearer " + expertInfo.token,
+        },
+      }
+    );
     dispatch({ type: REQ_UPDATE_ONE_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: REQ_UPDATE_ONE_FAIL, payload: e });
