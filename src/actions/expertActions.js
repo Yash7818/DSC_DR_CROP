@@ -19,11 +19,14 @@ const registerExpert = (name, email, password) => async (dispatch) => {
     payload: { name, email, password },
   });
   try {
-    const { data } = await Axios.post("/api/expert/registerexpert", {
-      name,
-      email,
-      password,
-    });
+    const { data } = await Axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/expert/registerexpert",
+      {
+        name,
+        email,
+        password,
+      }
+    );
     dispatch({ type: EXPERT_REGISTER_SUCCESS, payload: data });
     Cookie.set("expertInfo", JSON.parse(JSON.stringify(data)));
   } catch (e) {
@@ -37,10 +40,13 @@ const loginExpert = (email, password) => async (dispatch) => {
     payload: { email, password },
   });
   try {
-    const { data } = await Axios.post("/api/expert/loginexpert", {
-      email,
-      password,
-    });
+    const { data } = await Axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/expert/loginexpert",
+      {
+        email,
+        password,
+      }
+    );
     dispatch({ type: EXPERT_SIGNIN_SUCCESS, payload: data });
     Cookie.set("expertInfo", JSON.parse(JSON.stringify(data)));
   } catch (e) {
@@ -54,9 +60,12 @@ const googleauth = (tokenId) => async (dispatch) => {
     payload: { tokenId },
   });
   try {
-    const { data } = await Axios.post("/api/expert/googlelogin", {
-      tokenId,
-    });
+    const { data } = await Axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/expert/googlelogin",
+      {
+        tokenId,
+      }
+    );
     console.log(data);
     dispatch({ type: EXPERT_GOOGLE_SUCCESS, payload: data });
     Cookie.set("expertInfo", JSON.parse(JSON.stringify(data)));

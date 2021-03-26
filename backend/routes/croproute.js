@@ -25,7 +25,7 @@ router.post("/cropdetail", isAuth, async (req, res) => {
       });
     }
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "Crop not created" });
     console.log(e);
   }
 });
@@ -48,7 +48,7 @@ router.get("/cropdetail", isAuth, async (req, res) => {
     //   console.log(element);
     // });
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "Crop not Found" });
     console.log(e);
   }
 });
@@ -67,7 +67,7 @@ router.get("/cropdetail/:id", isAuth, async (req, res) => {
       res.send(specificCrop);
     }
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "Crop not Found" });
     console.log(e);
   }
 });
@@ -86,7 +86,7 @@ router.delete("/cropdetail/:id", isAuth, async (req, res) => {
       res.send(delcrop);
     }
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "Crop not Found" });
     console.log(e);
   }
 });

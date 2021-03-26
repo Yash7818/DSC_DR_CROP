@@ -12,11 +12,13 @@ import Cors from "cors";
 import socket from "socket.io";
 import http from "http";
 import path from "path";
+const PORT = process.env.PORT || 5000;
 
+console.log(PORT);
 // path.join(__dirname, dist);
 
 dotenv.config();
-const mongodbUrl = config.MONGODB_URL;
+const mongodbUrl = process.env.MONGODB_URL || config.MONGODB_URL;
 
 mongoose
   .connect(mongodbUrl, {
@@ -30,15 +32,14 @@ mongoose
 const app = express();
 app.use(bodyParser.json());
 app.use(Cors());
-app.use(express.static(path.join(__dirname+'../build')));
+app.use(express.static(path.join(__dirname + "../build")));
 app.use("/api/users", userRoute);
 app.use("/api/expert", expertRoute);
 app.use("/api/crop", cropRoute);
 app.use("/api/request", requestRoute);
 
-
 app.get("/*", (req, res) => {
-  res.sendFile(path.resolve(__dirname+"../build/index.html"));
+  res.sendFile(path.resolve(__dirname + "../build/index.html"));
 });
 
 const server = http.createServer(app);

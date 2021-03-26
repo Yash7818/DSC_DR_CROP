@@ -1,20 +1,27 @@
-import React,{useState} from 'react';
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
 
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Avatar from '@material-ui/core/Avatar';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import CreateIcon from '@material-ui/icons/Create';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import {makeStyles,createMuiTheme,ThemeProvider, withStyles} from '@material-ui/core/styles';
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Avatar from "@material-ui/core/Avatar";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
+import CreateIcon from "@material-ui/icons/Create";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormControl from "@material-ui/core/FormControl";
+import Select from "@material-ui/core/Select";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+  withStyles,
+} from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
 
 import NavBar from '../../components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
@@ -22,69 +29,67 @@ import { saveRequest } from '../../actions/requestActions';
 import { CircularProgress } from '@material-ui/core';
 import { Redirect } from 'react-router';
 
-const useStyles = makeStyles(()=>({
-    main:{
-        width:"100%",
-        padding:"3em 1em",
-        color:"#fff",
-    },
-    formControl:{
-        // minWidth:300
-        flexGrow:1,
-        margin:"1em 0"
-    },
-    formele:{
-        padding:"2em 1em",
-        textAlign:"center"
-    },
-    input:{
-        color:"#fff"
-    }
+const useStyles = makeStyles(() => ({
+  main: {
+    width: "100%",
+    padding: "3em 1em",
+    color: "#fff",
+  },
+  formControl: {
+    // minWidth:300
+    flexGrow: 1,
+    margin: "1em 0",
+  },
+  formele: {
+    padding: "2em 1em",
+    textAlign: "center",
+  },
+  input: {
+    color: "#fff",
+  },
 }));
 
 const styles = {
-    root: {
-        "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-            borderColor: "white"
-          },
-          "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-            borderColor: "#4caf50"
-          },
-          "& .MuiInputLabel-outlined": {
-            color: "white"
-          },
-          "&.MuiFormHelperText-root.Mui-error" :{
-            color: "white",
-          },
-      background: "transperent",
-      margin:"1em 0em"
+  root: {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
     },
-    main:{
-        width:"100%",
-        padding:"3em 1em",
-        color:"#fff",
-        letterSpacing:"3px"
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#4caf50",
     },
-    input: {
-      color: "#fff"
+    "& .MuiInputLabel-outlined": {
+      color: "white",
     },
-    error:{
-       color:"#fff"
-    }
-    
-  };
+    "&.MuiFormHelperText-root.Mui-error": {
+      color: "white",
+    },
+    background: "transperent",
+    margin: "1em 0em",
+  },
+  main: {
+    width: "100%",
+    padding: "3em 1em",
+    color: "#fff",
+    letterSpacing: "3px",
+  },
+  input: {
+    color: "#fff",
+  },
+  error: {
+    color: "#fff",
+  },
+};
 
 const theme = createMuiTheme({
-    palette: {
-        primary: {
-          main: "#4caf50",
-        },
-        secondary: {
-          main: "#ffffff",
-        },
-        
-      },
-})
+  palette: {
+    primary: {
+      main: "#4caf50",
+    },
+    secondary: {
+      main: "#ffffff",
+    },
+  },
+});
 
 function ExpForm(props){
     const [title,setTitle] = useState('');
@@ -207,7 +212,7 @@ function ExpForm(props){
 
 
 ExpForm.propTypes = {
-    classes: PropTypes.object.isRequired
-  };
+  classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(ExpForm);

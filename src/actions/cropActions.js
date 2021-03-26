@@ -16,18 +16,21 @@ import axios from "axios";
 
 const saveCrop = (crop) => async (dispatch, getstate) => {
   try {
-
     dispatch({ type: CROP_SAVE_REQUEST, payload: crop });
     console.log(crop);
     const {
       userSignin: { userInfo },
     } = getstate();
-      const { data } = await axios.post("/api/crop/cropdetail", crop, {
+    const { data } = await axios.post(
+      "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail",
+      crop,
+      {
         headers: {
           Authorization: "Bearer " + userInfo.token,
         },
-      });
-      dispatch({ type: CROP_SAVE_SUCCESS, payload: data });
+      }
+    );
+    dispatch({ type: CROP_SAVE_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: CROP_SAVE_FAIL, payload: e });
   }
@@ -39,11 +42,14 @@ const listCrop = () => async (dispatch, getstate) => {
     const {
       userSignin: { userInfo },
     } = getstate();
-    const { data } = await axios.get("/api/crop/cropdetail", {
-      headers: {
-        Authorization: "Bearer " + userInfo.token,
-      },
-    });
+    const { data } = await axios.get(
+      "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail",
+      {
+        headers: {
+          Authorization: "Bearer " + userInfo.token,
+        },
+      }
+    );
     dispatch({ type: CROP_LIST_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: CROP_LIST_FAIL, payload: e });
@@ -57,11 +63,15 @@ const listOneCrop = (cropId) => async (dispatch, getstate) => {
       userSignin: { userInfo },
     } = getstate();
     if (cropId) {
-      const { data } = await axios.get("/api/crop/cropdetail/" + cropId, {
-        headers: {
-          Authorization: "Bearer " + userInfo.token,
-        },
-      });
+      const { data } = await axios.get(
+        "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail/" +
+          cropId,
+        {
+          headers: {
+            Authorization: "Bearer " + userInfo.token,
+          },
+        }
+      );
       dispatch({ type: CROP_LIST_ONE_SUCCESS, payload: data });
     }
   } catch (e) {
@@ -76,11 +86,15 @@ const deleteOneCrop = (cropId) => async (dispatch, getstate) => {
       userSignin: { userInfo },
     } = getstate();
     if (cropId) {
-      const { data } = await axios.delete("/api/crop/cropdetail/" + cropId, {
-        headers: {
-          Authorization: "Bearer " + userInfo.token,
-        },
-      });
+      const { data } = await axios.delete(
+        "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail/" +
+          cropId,
+        {
+          headers: {
+            Authorization: "Bearer " + userInfo.token,
+          },
+        }
+      );
       dispatch({ type: CROP_DELETE_ONE_SUCCESS, payload: data });
     }
   } catch (e) {

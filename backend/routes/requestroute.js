@@ -26,7 +26,7 @@ router.post("/sendrequest", isAuth, async (req, res) => {
       });
     }
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "Request could not be created" });
     console.log(e);
   }
 });
@@ -41,7 +41,7 @@ router.get("/getrequest", isAuth, async (req, res) => {
       res.send(allrequest);
     }
   } catch (e) {
-    res.send(e);
+    res.status(404).send({ error: "Request not Found" });
     console.log(e);
   }
 });
@@ -54,7 +54,7 @@ router.get("/getrequest/:id", isAuth, async (req, res) => {
       res.send(partrequest);
     }
   } catch (e) {
-    res.send(e);
+    res.status(404).send({ error: "Request not Found" });
   }
 });
 
@@ -72,7 +72,7 @@ router.patch("/getrequest/:id", isAuth, async (req, res) => {
       }
     }
   } catch (e) {
-    res.send(e);
+    res.status(404).send({ error: "Request could not be updated" });
     console.log(e);
   }
 });
@@ -88,7 +88,7 @@ router.get("/userrequest", isAuth, async (req, res) => {
       console.log(userrequest);
     }
   } catch (e) {
-    res.send(e);
+    res.status(404).send({ error: "Request not Found" });
     console.log(e);
   }
 });
@@ -105,7 +105,7 @@ router.get("/userrequest/:id", isAuth, async (req, res) => {
       console.log(partrequest);
     }
   } catch (e) {
-    res.send(e);
+    res.status(404).send({ error: "Request not Found" });
     console.log(e);
   }
 });
@@ -121,7 +121,7 @@ router.delete("/userrequest/:id", isAuth, async (req, res) => {
       res.send(delrequest);
     }
   } catch (e) {
-    res.send(e);
+    res.status(404).send({ error: "Request not Found" });
     console.log(e);
   }
 });

@@ -1,10 +1,10 @@
+import { OAuth2Client } from "google-auth-library";
+import config from "../config/config";
 import express from "express";
 import Expert from "../models/expertmodel";
 import { getToken, isAuth } from "../utils";
 import bcrypt from "bcryptjs";
 const router = express.Router();
-import { OAuth2Client } from "google-auth-library";
-import config from "../config/config";
 const client = new OAuth2Client(config.CLIENT_ID);
 
 router.post("/registerexpert", async (req, res) => {
@@ -33,7 +33,7 @@ router.post("/registerexpert", async (req, res) => {
       });
     }
   } catch (e) {
-    res.status(404).send(e);
+    res.status(404).send({ error: "expert didn't registered" });
     console.log(e);
   }
 });
@@ -103,7 +103,7 @@ router.post("/googlelogin", async (req, res) => {
       }
     }
   } catch (err) {
-    res.send(err);
+    res.status(404).send({ error: "User didnt login" });
   }
 });
 
