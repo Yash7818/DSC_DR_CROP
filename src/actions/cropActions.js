@@ -22,7 +22,7 @@ const saveCrop = (crop) => async (dispatch, getstate) => {
       userSignin: { userInfo },
     } = getstate();
     const { data } = await axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail",
+      "/api/crop/cropdetail",
       crop,
       {
         headers: {
@@ -43,7 +43,7 @@ const listCrop = () => async (dispatch, getstate) => {
       userSignin: { userInfo },
     } = getstate();
     const { data } = await axios.get(
-      "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail",
+      "/api/crop/cropdetail",
       {
         headers: {
           Authorization: "Bearer " + userInfo.token,
@@ -64,7 +64,7 @@ const listOneCrop = (cropId) => async (dispatch, getstate) => {
     } = getstate();
     if (cropId) {
       const { data } = await axios.get(
-        "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail/" +
+        "/api/crop/cropdetail/" +
           cropId,
         {
           headers: {
@@ -87,7 +87,7 @@ const deleteOneCrop = (cropId) => async (dispatch, getstate) => {
     } = getstate();
     if (cropId) {
       const { data } = await axios.delete(
-        "https://dr-crop-backend.azurewebsites.net/api/crop/cropdetail/" +
+        "/api/crop/cropdetail/" +
           cropId,
         {
           headers: {

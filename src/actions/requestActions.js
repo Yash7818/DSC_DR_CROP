@@ -22,7 +22,7 @@ const saveRequest = (query) => async (dispatch, getstate) => {
       userSignin: { userInfo },
     } = getstate();
     const { data } = await axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/request/sendrequest",
+      "/api/request/sendrequest",
       query,
       {
         headers: {
@@ -43,7 +43,6 @@ const listRequest = () => async(dispatch, getstate) => {
     const {
       expertSignin: { expertInfo },
     } = getstate();
-<<<<<<< HEAD
     const {data}  = await axios.get("/api/request/getrequest", {
       headers: {
         Authorization: "Bearer " + expertInfo.token,
@@ -53,17 +52,6 @@ const listRequest = () => async(dispatch, getstate) => {
       dispatch({ type: REQ_LIST_SUCCESS, payload:res.data });
       return res.data;
     });
-=======
-    const { data } = await axios.get(
-      "https://dr-crop-backend.azurewebsites.net/api/request/getrequest",
-      {
-        headers: {
-          Authorization: "Bearer " + expertInfo.token,
-        },
-      }
-    );
-    dispatch({ type: REQ_LIST_SUCCESS, payload: data });
->>>>>>> 814e5885c13880a9344a4029d14082909d973a85
   } catch (e) {
     dispatch({ type: REQ_LIST_FAIL, payload: e });
   }
@@ -76,7 +64,7 @@ const listOneRequest = (requestId) => async (dispatch, getstate) => {
       expertSignin: { expertInfo },
     } = getstate();
     const { data } = await axios.get(
-      "https://dr-crop-backend.azurewebsites.net/api/request/getrequest/" +
+      "/api/request/getrequest/" +
         requestId,
       {
         headers: {
@@ -97,7 +85,7 @@ const updateOneRequest = (requestId) => async (dispatch, getstate) => {
       expertSignin: { expertInfo },
     } = getstate();
     const { data } = await axios.patch(
-      "https://dr-crop-backend.azurewebsites.net/api/request/getrequest/" +
+      "/api/request/getrequest/" +
         requestId,
       {
         headers: {

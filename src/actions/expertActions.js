@@ -20,7 +20,7 @@ const registerExpert = (name, email, password) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/expert/registerexpert",
+      "/api/expert/registerexpert",
       {
         name,
         email,
@@ -41,7 +41,7 @@ const loginExpert = (email, password) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/expert/loginexpert",
+      "/api/expert/loginexpert",
       {
         email,
         password,
@@ -61,7 +61,7 @@ const googleauth = (tokenId) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/expert/googlelogin",
+      "/api/expert/googlelogin",
       {
         tokenId,
       }

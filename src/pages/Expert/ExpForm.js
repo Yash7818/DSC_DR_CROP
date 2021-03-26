@@ -21,7 +21,6 @@ import {
   ThemeProvider,
   withStyles,
 } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
 
 import NavBar from '../../components/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
