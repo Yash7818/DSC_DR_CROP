@@ -21,9 +21,12 @@ import {
   ThemeProvider,
   withStyles,
 } from "@material-ui/core/styles";
-import { useDispatch, useSelector } from "react-redux";
 
-import NavBar from "../../components/Navbar";
+import NavBar from '../../components/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveRequest } from '../../actions/requestActions';
+import { CircularProgress } from '@material-ui/core';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles(() => ({
   main: {
@@ -87,166 +90,125 @@ const theme = createMuiTheme({
   },
 });
 
-function ExpForm(props) {
-  const userSignin = useSelector((state) => state.userSignin);
-  const { loading, userInfo, error } = userSignin;
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [med, setMed] = useState("");
-  const [lang, setLang] = useState("");
-  const [medlink, setMedlink] = useState("");
-  const { classes } = props;
+function ExpForm(props){
+    const [title,setTitle] = useState('');
+    const [desc,setDesc] = useState('');
+    const [med,setMed] = useState('');
+    const [lang,setLang] = useState('');
+    const dispatch = useDispatch();
+    const {classes} = props;
 
-  const handleChange = (event) => {
-    setLang(event.target.value);
-  };
-  const handleChangeMed = (event) => {
-    setMed(event.target.value);
-  };
-
-  const handlechangeMedLink = () => {
-    if (med == "Message Chat") {
-      const link = uuidv4();
-      const chatLink = "/chat/name=" + userInfo.name + "&room=" + link;
-
-      console.log(link, chatLink);
-      setMedlink(chatLink);
+    const userSignin = useSelector(state=>state.userSignin);
+    const {loading,userInfo,error} = userSignin;
+    const requestSave = useSelector(state=>state.requestSave);
+    const {loading12,query,error12} = requestSave;
+    
+    const handleChange = (event) => {
+        setLang(event.target.value);
+    };
+    const handleChangeMed = (event) =>{
+        setMed(event.target.value);
     }
-  };
 
-  useEffect(() => {
-    handlechangeMedLink();
-  }, [med]);
-
-  return (
-    <>
-      <ThemeProvider theme={theme}>
-        <NavBar />
-        <Grid
-          container
-          item
-          direction="column"
-          alignItems="center"
-          justify="center"
-          className={classes.main}
-        >
-          <Typography
-            variant="h4"
-            justify="center"
-            textAlign="center"
-            style={{
-              fontWeight: "600",
-              flexGrow: 1,
-              textAlign: "center",
-              padding: "1em 0em",
-            }}
-          >
-            Expert Enquiry Form
-          </Typography>
-          <form>
-            <Grid item container>
-              <TextField
-                variant="outlined"
-                label="Title"
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                helperText="Give a precise title to the query."
-                FormHelperTextProps={{
-                  classes: {
-                    error: classes.error,
-                  },
-                }}
-                onChange={(e) => setTitle(e.target.value)}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                label="Description"
-                multiline
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                helperText="Give description of the query in breif."
-                onChange={(e) => setDesc(e.target.value)}
-              ></TextField>
-              <FormControl
-                variant="outlined"
-                className={classes.root}
-                style={{ width: "100%", color: "#fff" }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Language
-                </InputLabel>
-
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={lang}
-                  onChange={handleChange}
-                  style={{ color: "#fff" }}
-                  label="Language"
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"English"}>English</MenuItem>
-                  <MenuItem value={"Hindi"}>Hindi</MenuItem>
-                  <MenuItem value={"Marathi"}>Marathi</MenuItem>
-                </Select>
-                <FormHelperText>
-                  Select language in which assistance is needed.
-                </FormHelperText>
-              </FormControl>
-              <FormControl
-                variant="outlined"
-                className={classes.root}
-                style={{ width: "100%", color: "#fff" }}
-              >
-                <InputLabel id="demo-simple-select-outlined-label">
-                  Medium
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={med}
-                  onChange={handleChangeMed}
-                  style={{ color: "#fff" }}
-                  label="Language"
-                >
-                  <MenuItem value="">
-                    <em>None</em>
-                  </MenuItem>
-                  <MenuItem value={"Video Chat"}>Video Chat</MenuItem>
-                  <MenuItem value={"Message Chat"}>Message Chat</MenuItem>
-                </Select>
-                <FormHelperText>
-                  Select a medium of communication.
-                </FormHelperText>
-              </FormControl>
-              <Button
-                color="primary"
-                style={{ color: "#fff", margin: "1em 0em" }}
-                variant="contained"
-              >
-                Submit
-              </Button>
-            </Grid>
-          </form>
-        </Grid>
-      </ThemeProvider>
-    </>
-  );
+    const handleSubmit = () => {
+        dispatch(saveRequest({title:title,medium:med,language:lang,content:desc,mediumLink:`/${userInfo.name}`}));
+        console.log(title);
+        console.log(query);
+    }
+    return(
+        <>
+            <ThemeProvider theme={theme}>
+                <NavBar />
+                <Grid container item direction="column" alignItems="center" justify="center" className={classes.main}>
+                    <Typography variant="h4" justify="center" textAlign="center" style={{fontWeight:"600",flexGrow:1,textAlign:"center",padding:"1em 0em"}}>
+                        Expert Enquiry Form
+                    </Typography>
+                    <form>
+                        <Grid item container>
+                        <TextField
+                            variant="outlined"
+                            label="Title"
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            helperText="Give a precise title to the query."
+                            FormHelperTextProps={{
+                                classes:{
+                                    error: classes.error
+                                }
+                            }}
+                            onChange={(e)=>setTitle(e.target.value)}
+                            ></TextField>
+                            <TextField
+                            variant="outlined"
+                            label="Description"
+                            multiline
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            helperText="Give description of the query in breif."
+                            onChange={(e)=>setDesc(e.target.value)}
+                            ></TextField>
+                            <FormControl variant="outlined" className={classes.root} style={{width:"100%",color:"#fff"}}>
+                            <InputLabel id="demo-simple-select-outlined-label">Language</InputLabel>
+                           
+                            <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                              value={lang}
+                            onChange={handleChange}
+                            style={{color:"#fff"}}
+                            label="Language"
+                            >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"English"}>English</MenuItem>
+                            <MenuItem value={"Hindi"}>Hindi</MenuItem>
+                            <MenuItem value={"Marathi"}>Marathi</MenuItem>
+                            </Select>
+                            <FormHelperText>Select language in which assistance is needed.</FormHelperText>
+                        </FormControl>
+                        <FormControl variant="outlined" className={classes.root} style={{width:"100%",color:"#fff"}}>
+                            <InputLabel id="demo-simple-select-outlined-label">Medium</InputLabel>
+                            <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            value={med}
+                            onChange={handleChangeMed}
+                            style={{color:"#fff"}}
+                            label="Language"
+                            >
+                            <MenuItem value="">
+                                <em>None</em>
+                            </MenuItem>
+                            <MenuItem value={"Video Chat"}>Video Chat</MenuItem>
+                            <MenuItem value={"Voice Chat"}>Voice Chat</MenuItem>
+                            </Select>
+                            <FormHelperText>Select a medium of communication.</FormHelperText>
+                        </FormControl>
+                        <Button color="primary" style={{color:"#fff",margin:"1em 0em"}} variant="contained" onClick={handleSubmit}>{loading12?<CircularProgress size={24}></CircularProgress>:"Submit"}</Button>
+                            {/* {
+                                query&&<Redirect to="/userprofile"></Redirect>
+                            } */}
+                        </Grid>
+                    </form>
+                </Grid>
+            </ThemeProvider>
+        </>
+    );
 }
+
 
 ExpForm.propTypes = {
   classes: PropTypes.object.isRequired,

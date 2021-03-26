@@ -93,7 +93,7 @@ export default function UserProfile() {
                             </Typography>
                         </Grid>
                         <Grid>
-                            <Link to="/disform"><Button variant="outlined" color="secondary">Proceed</Button></Link>
+                            <Link to="/disform" style={{textDecoration:"none"}}><Button variant="outlined" color="secondary">Proceed</Button></Link>
                         </Grid>
                     </Grid>
                     <Grid className={classes.butarea}>
@@ -108,7 +108,7 @@ export default function UserProfile() {
                             </Typography>
                         </Grid>
                         <Grid>
-                            <Link to="/expform"><Button variant="outlined" color="secondary">Proceed</Button></Link>
+                            <Link to="/expform" style={{textDecoration:"none"}}><Button variant="outlined" color="secondary">Proceed</Button></Link>
                         </Grid>
                     </Grid>
                 </Grid>

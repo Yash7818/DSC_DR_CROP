@@ -27,30 +27,33 @@ import {
   withStyles,
 } from "@material-ui/core/styles";
 
-import NavBar from "../../components/Navbar";
-import { Link, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { googleauth, register, signin } from "../../actions/userActions";
-require("dotenv").config();
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import NavBar from '../../components/Navbar';
+import { Link,Redirect } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { googleauth, register, signin } from '../../actions/userActions';
+import { loginExpert } from '../../actions/expertActions';
+import { FormGroup } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
-  main: {
-    width: "100%",
-    padding: "3em 1em",
-    color: "#fff",
-  },
-  formControl: {
-    // minWidth:300
-    flexGrow: 1,
-    margin: "1em 0",
-  },
-  formele: {
-    padding: "2em 1em",
-    textAlign: "center",
-  },
-  input: {
-    color: "#fff",
-  },
+const useStyles = makeStyles(()=>({
+    main:{
+        width:"100%",
+        padding:"3em 1em",
+        color:"#fff",
+    },
+    formControl:{
+        // minWidth:300
+        flexGrow:1,
+        margin:"1em 0"
+    },
+    formele:{
+        padding:"2em 1em",
+        textAlign:"center"
+    },
+    input:{
+        color:"#fff"
+    }
 }));
 
 const styles = {
@@ -95,124 +98,152 @@ const theme = createMuiTheme({
   },
 });
 
-function LogIn(props) {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState({
-    password: "",
-    showPassword: false,
-  });
-  const dispatch = useDispatch();
-  const { classes } = props;
-  const userSignin = useSelector((state) => state.userSignin);
-  const { loading, userInfo, error } = userSignin;
+function LogIn(props){
+    const [email,setEmail] = useState('');
+    const [pass,setPass] = useState({
+        password:'',
+        showPassword:false
+    })
+    const [state, setState] = useState({
+      checkedA: false,
+    });
+  
+    const handleChange = (event) => {
+      setState({ ...state, [event.target.name]: event.target.checked });
+    };
+    const dispatch = useDispatch();
+    const {classes} = props;
+    const userSignin = useSelector(state => state.userSignin);
+    const { loading, userInfo, error } = userSignin;
+    const expertSignin = useSelector(state=>state.expertSignin);
+    const {loading3,expertInfo,error3} = expertSignin;
 
-  const handleClickShowPassword = () => {
-    setPass({ ...pass, showPassword: !pass.showPassword });
-  };
+    const handleClickShowPassword = () => {
+      setPass({ ...pass, showPassword: !pass.showPassword });
+    };
+  
+    const handleMouseDownPassword = (event) => {
+      event.preventDefault();
+    };
+  
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
+    const handleSignin = () =>{
+      if(state.checkedA){
+        dispatch(loginExpert(email,pass.password));
+      }
+      else{
+        dispatch(signin(email,pass.password));
+      }
+    }
 
-  const handleSignin = () => {
-    dispatch(signin(email, pass.password));
-  };
-
-  const responseSuccessGoogle = (response) => {
-    console.log(response);
-    dispatch(googleauth(response.tokenId));
-    // axios({
-    //   method: "POST",
-    //   url: "/api/users/googlelogin",
-    //   data: { tokenId: response.tokenId },
-    // }).then((result) => {
-    //   console.log("Google Login Success", result);
-    //   Cookie.set("userInfo", JSON.parse(JSON.stringify(result)));
-    // });
-  };
-  const responseErrorGoogle = (response) => {
-    console.log(response);
-  };
-  return (
-    <>
-      <ThemeProvider theme={theme}>
-        <NavBar />
-        <Grid
-          container
-          item
-          direction="column"
-          alignItems="center"
-          justify="center"
-          className={classes.main}
-        >
-          <Typography
-            variant="h4"
-            justify="center"
-            textAlign="center"
-            style={{
-              fontWeight: "600",
-              flexGrow: 1,
-              textAlign: "center",
-              padding: "1em 0em",
-            }}
-          >
-            Log In
-          </Typography>
-          <GoogleLogin
-            clientId={process.env.CLIENT_ID}
-            buttonText="Login"
-            onSuccess={responseSuccessGoogle}
-            onFailure={responseErrorGoogle}
-            cookiePolicy={"single_host_origin"}
-            style={{ width: "100%" }}
-          />
-          <form>
-            <Grid item container>
-              <TextField
-                variant="outlined"
-                label="Email or Username"
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                helperText="Email which was used to register."
-                FormHelperTextProps={{
-                  classes: {
-                    error: classes.error,
-                  },
-                }}
-                onChange={(e) => setEmail(e.target.value)}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                label="Password"
-                type="password"
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {pass.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                onChange={(e) => setPass({ password: e.target.value })}
-              ></TextField>
+    const responseSuccessGoogle = (response) => {
+        console.log(response);
+        dispatch(googleauth(response.tokenId));
+        // axios({
+        //   method: "POST",
+        //   url: "/api/users/googlelogin",
+        //   data: { tokenId: response.tokenId },
+        // }).then((result) => {
+        //   console.log("Google Login Success", result);
+        //   Cookie.set("userInfo", JSON.parse(JSON.stringify(result)));
+        // });
+      };
+      const responseErrorGoogle = (response) => {
+        console.log(response);
+      };
+    return(
+        <>
+            <ThemeProvider theme={theme}>
+                <NavBar />
+                <Grid container item direction="column" alignItems="center" justify="center" className={classes.main}>
+                    <Typography variant="h4" justify="center" textAlign="center" style={{fontWeight:"600",flexGrow:1,textAlign:"center",padding:"1em 0em"}}>
+                        Log In
+                    </Typography>
+                    <GoogleLogin
+                                clientId={config.CLIENT_ID}
+                                buttonText="Login"
+                                onSuccess={responseSuccessGoogle}
+                                onFailure={responseErrorGoogle}
+                                cookiePolicy={"single_host_origin"}
+                                style={{width:"100%"}}
+                    />
+                    <form>
+                        <Grid item container>
+                        <TextField
+                            variant="outlined"
+                            label="Email or Username"
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            helperText={error?error:"Email which was used to register."}
+                            FormHelperTextProps={{
+                                classes:{
+                                    error: classes.error
+                                }
+                            }}
+                            onChange={(e)=>setEmail(e.target.value)}
+                            ></TextField>
+                            <TextField
+                            variant="outlined"
+                            label="Password"
+                            type="password"
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {pass.showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            onChange={(e)=>setPass({password:e.target.value})}
+                            ></TextField>
+                            
+                          
+                            <Typography style={{padding:"2em 0 1em 0"}}>
+                            <FormGroup column>
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={state.checkedA}
+                                  onChange={handleChange}
+                                  name="checkedA"
+                                  color="primary"
+                                />
+                              }
+                              label="Sign in as an expert."
+                            ></FormControlLabel>
+                            </FormGroup>
+                                Don't have an account? <Link to="/signup" style={{color:"#4caf50",cursor:"pointer",textDecoration:"none"}}>Sign Up</Link> here.
+                            </Typography>
+                            
+                        <Button color="primary" style={{color:"#fff",margin:"1em 0em",width:"100%",textAlign:"center"}} variant="contained" onClick={handleSignin}>
+                            {
+                              loading||loading3?<CircularProgress size={24} color="secondary"></CircularProgress>: <div>Log In</div>
+                            }
+                            {
+                              userInfo&&<Redirect to="/userprofile"></Redirect>
+                            }
+                            {
+                              expertInfo&&<Redirect to="/expertprofile"></Redirect>
+                            }
+                        </Button>
 
               <Typography style={{ padding: "2em 0 1em 0" }}>
                 Don't have an account?{" "}

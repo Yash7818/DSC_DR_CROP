@@ -2,17 +2,12 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
-import config from "./backend/config/config";
-import userRoute from "./backend/routes/userRoute";
-import expertRoute from "./backend/routes/expertroute";
-import cropRoute from "./backend/routes/croproute";
-import requestRoute from "./backend/routes/requestroute";
-import {
-  addUser,
-  removeUser,
-  getUser,
-  getUsersInRoom,
-} from "./backend/userchat";
+import config from "./config/config";
+import userRoute from "./routes/userRoute";
+import expertRoute from "./routes/expertroute";
+import cropRoute from "./routes/croproute";
+import requestRoute from "./routes/requestroute";
+import { addUser, removeUser, getUser, getUsersInRoom } from "./userchat";
 import Cors from "cors";
 import socket from "socket.io";
 import http from "http";

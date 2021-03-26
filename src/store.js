@@ -23,6 +23,7 @@ import { cropSaveReducer } from "./reducers/cropReducer";
 const userInfo = Cookie.getJSON("userInfo") || null;
 const expertInfo = Cookie.getJSON("expertInfo") || null;
 
+
 const initialState = { userSignin: { userInfo }, expertSignin: { expertInfo } };
 const reducer = combineReducers({
   userSignin: userSigninReducer,
@@ -33,8 +34,8 @@ const reducer = combineReducers({
   expertRegister: expertRegisterReducer,
   expertGoogleSignin: expertGoogleSigninReducer,
   requestSave: requestSaveReducer,
-  requestListOne: requestListOneReducer,
   requestList: requestListReducer,
+  requestListOne: requestListOneReducer,
   requestUpdate: requestUpdateOneReducer,
   cropSave:cropSaveReducer
 });

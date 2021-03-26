@@ -29,13 +29,15 @@ function Home(){
 
     const userSignin = useSelector(state => state.userSignin);
     const { loading, userInfo, error } = userSignin;
+
+    const expertSignin = useSelector(state=>state.expertSignin);
+    const {loading3,expertInfo,error3} = expertSignin;
    
     useEffect(()=>{
-       
         return () =>{
            
         }
-    },[userInfo])
+    },[userInfo,expertInfo])
     return(
       <>
         <div>
@@ -52,17 +54,27 @@ function Home(){
                     <Grid>
                         <Button variant="outlined" style={{color:"#fff",width:"fit-content",height:"2.5em",fontSize:"1em",fontWeight:"700",border:"2px solid #fff",borderRadius:"3em"}} >
                             {
-                            userInfo ?<Link style={{textDecoration:"none",color:"#fff",fontSize:"1em"}} to="/userProfile">
-                                Go to Profile</Link>:
-                                <Link to="/login" style={{textDecoration:"none",color:"#fff"}}>
-                                    <div>Get Started</div>
-                                </Link>
+                            userInfo&&<Link style={{textDecoration:"none",color:"#fff",fontSize:"1em"}} to="/userProfile">
+                                Go to Profile</Link>
                             }
                             {
-                                loading&&<CircularProgress size={24}/>
+                               expertInfo &&<Link style={{textDecoration:"none",color:"#fff",fontSize:"1em"}} to="/expertProfile">
+                               Go to Profile</Link>
+                            }
+                            {
+                              !userInfo && !expertInfo && 
+                              <Link to="/login" style={{textDecoration:"none",color:"#fff"}}>
+                                    <div>Get Started</div>
+                              </Link>
+                            }
+                            {
+                                loading||loading3 &&<CircularProgress size={24}/>
                             }
                             {
                                 error&&error
+                            }
+                            {
+                              error3&&error3
                             }
                            
                         </Button>

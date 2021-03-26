@@ -21,30 +21,34 @@ import {
   withStyles,
 } from "@material-ui/core/styles";
 
-import NavBar from "../../components/Navbar";
-import { Link, Redirect } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { googleauth, register } from "../../actions/userActions";
-require("dotenv").config();
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
-const useStyles = makeStyles(() => ({
-  main: {
-    width: "100%",
-    padding: "3em 1em",
-    color: "#fff",
-  },
-  formControl: {
-    // minWidth:300
-    flexGrow: 1,
-    margin: "1em 0",
-  },
-  formele: {
-    padding: "2em 1em",
-    textAlign: "center",
-  },
-  input: {
-    color: "#fff",
-  },
+import NavBar from '../../components/Navbar';
+import { Link,Redirect} from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { googleauth, register } from '../../actions/userActions';
+import { registerExpert } from '../../actions/expertActions';
+
+const useStyles = makeStyles(()=>({
+    main:{
+        width:"100%",
+        padding:"3em 1em",
+        color:"#fff",
+    },
+    formControl:{
+        // minWidth:300
+        flexGrow:1,
+        margin:"1em 0"
+    },
+    formele:{
+        padding:"2em 1em",
+        textAlign:"center"
+    },
+    input:{
+        color:"#fff"
+    }
 }));
 
 const styles = {
@@ -89,18 +93,25 @@ const theme = createMuiTheme({
   },
 });
 
-function SignUp(props) {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [cpass, setCpass] = useState("");
-  const [pass, setPass] = useState({
-    password: "",
-    showPassword: false,
-  });
-  const dispatch = useDispatch();
-  const { classes } = props;
-  const userRegister = useSelector((state) => state.userRegister);
-  const { loading2, userInfo2, error2 } = userRegister;
+function SignUp(props){
+    const [username,setUsername] = useState('');
+    const [email,setEmail] = useState('');
+    const [cpass,setCpass] = useState('');
+    const [pass,setPass] = useState({
+        password:'',
+        showPassword:false
+    });
+    const [state, setState] = useState({
+      checkedA: false,
+    });
+  
+    const handleChange = (event) => {
+      setState({ ...state, [event.target.name]: event.target.checked });
+    };
+    const dispatch = useDispatch();
+    const {classes} = props;
+    const userRegister = useSelector(state => state.userRegister);
+    const { loading2,userInfo2,error2 } = userRegister;
 
   const handleClickShowPassword = () => {
     setPass({ ...pass, showPassword: !pass.showPassword });
@@ -110,182 +121,164 @@ function SignUp(props) {
     event.preventDefault();
   };
 
-  const handleSignup = () => {
-    dispatch(register(username, email, pass.password));
-  };
-  const responseSuccessGoogle = (response) => {
-    console.log(response);
-    dispatch(googleauth(response.tokenId));
-    // axios({
-    //   method: "POST",
-    //   url: "/api/users/googlelogin",
-    //   data: { tokenId: response.tokenId },
-    // }).then((result) => {
-    //   console.log("Google Login Success", result);
-    //   Cookie.set("userInfo", JSON.parse(JSON.stringify(result)));
-    // });
-  };
-  const responseErrorGoogle = (response) => {
-    console.log(response);
-  };
-
-  return (
-    <>
-      <ThemeProvider theme={theme}>
-        <NavBar />
-        <Grid
-          container
-          item
-          direction="column"
-          alignItems="center"
-          justify="center"
-          className={classes.main}
-        >
-          <Typography
-            variant="h4"
-            justify="center"
-            textAlign="center"
-            style={{
-              fontWeight: "600",
-              flexGrow: 1,
-              textAlign: "center",
-              padding: "1em 0em",
-            }}
-          >
-            Sign Up
-          </Typography>
-          <GoogleLogin
-            clientId={process.env.CLIENT_ID}
-            buttonText="Login"
-            onSuccess={responseSuccessGoogle}
-            onFailure={responseErrorGoogle}
-            cookiePolicy={"single_host_origin"}
-            style={{ width: "100%" }}
-          />
-          <form>
-            <Grid item container>
-              <TextField
-                variant="outlined"
-                label="Username"
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                helperText="Choose some intresting username."
-                FormHelperTextProps={{
-                  classes: {
-                    error: classes.error,
-                  },
-                }}
-                onChange={(e) => setUsername(e.target.value)}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                label="Email"
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                FormHelperTextProps={{
-                  classes: {
-                    error: classes.error,
-                  },
-                }}
-                onChange={(e) => setEmail(e.target.value)}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                label="Password"
-                type="password"
-                color="primary"
-                style={{ width: "100%" }}
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {pass.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                onChange={(e) => setPass({ password: e.target.value })}
-              ></TextField>
-              <TextField
-                variant="outlined"
-                label="Confirm Password"
-                type="password"
-                color="primary"
-                style={{ width: "100%" }}
-                helperText={
-                  pass.password === cpass ? "" : "Password didn't match"
-                }
-                className={classes.root}
-                InputProps={{
-                  classes: {
-                    input: classes.input,
-                  },
-                }}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {pass.showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                onChange={(e) => setCpass(e.target.value)}
-              ></TextField>
-              <Typography style={{ padding: "2em 0 1em 0" }}>
-                Already have an account?{" "}
-                <Link
-                  to="/login"
-                  style={{
-                    color: "#4caf50",
-                    cursor: "pointer",
-                    textDecoration: "none",
-                  }}
-                >
-                  Log In
-                </Link>{" "}
-                here.
-              </Typography>
-              <Button
-                color="primary"
-                style={{ color: "#fff", margin: "1em 0em", width: "100%" }}
-                variant="contained"
-                onClick={handleSignup}
-              >
-                {loading2 ? (
-                  <CircularProgress
-                    size={24}
-                    color="secondary"
-                  ></CircularProgress>
-                ) : (
-                  "Sign up"
-                )}
-                {userInfo2 && <Redirect to="/login"></Redirect>}
-              </Button>
+    const handleSignup = () =>{
+      if(state.checkedA){
+        dispatch(registerExpert(username,email,pass.password));
+      }
+      else{
+        dispatch(register(username,email,pass.password));
+      }
+    }
+    const responseSuccessGoogle = (response) => {
+        console.log(response);
+        dispatch(googleauth(response.tokenId));
+        // axios({
+        //   method: "POST",
+        //   url: "/api/users/googlelogin",
+        //   data: { tokenId: response.tokenId },
+        // }).then((result) => {
+        //   console.log("Google Login Success", result);
+        //   Cookie.set("userInfo", JSON.parse(JSON.stringify(result)));
+        // });
+      };
+      const responseErrorGoogle = (response) => {
+        console.log(response);
+      };
+   
+    return(
+        <>
+            <ThemeProvider theme={theme}>
+                <NavBar />
+                <Grid container item direction="column" alignItems="center" justify="center" className={classes.main}>
+                    <Typography variant="h4" justify="center" textAlign="center" style={{fontWeight:"600",flexGrow:1,textAlign:"center",padding:"1em 0em"}}>
+                        Sign Up
+                    </Typography>
+                    <GoogleLogin
+                                clientId={config.CLIENT_ID}
+                                buttonText="Login"
+                                onSuccess={responseSuccessGoogle}
+                                onFailure={responseErrorGoogle}
+                                cookiePolicy={"single_host_origin"}
+                                style={{width:"100%"}}
+                    />
+                    <form>
+                        <Grid item container>
+                        <TextField
+                            variant="outlined"
+                            label="Username"
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            helperText={"Choose some intresting username."}
+                            FormHelperTextProps={{
+                                classes:{
+                                    error: classes.error
+                                }
+                            }}
+                            onChange={(e)=>setUsername(e.target.value)}
+                            ></TextField>
+                            <TextField
+                            variant="outlined"
+                            label="Email"
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            helperText={error2&&error2}
+                            FormHelperTextProps={{
+                                classes:{
+                                    error: classes.error
+                                }
+                            }}
+                            onChange={(e)=>setEmail(e.target.value)}
+                            ></TextField>
+                            <TextField
+                            variant="outlined"
+                            label="Password"
+                            type="password"
+                            color="primary"
+                            style={{width:"100%"}}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {pass.showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            onChange={(e)=>setPass({password:e.target.value})}
+                            ></TextField>
+                            <TextField
+                            variant="outlined"
+                            label="Confirm Password"
+                            type="password"
+                            color="primary"
+                            style={{width:"100%"}}
+                            helperText={pass.password===cpass?"":"Password didn't match"}
+                            className={classes.root}
+                            InputProps={{
+                                classes: {
+                                    input: classes.input
+                                }
+                            }}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                  <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                    edge="end"
+                                  >
+                                    {pass.showPassword ? <Visibility /> : <VisibilityOff />}
+                                  </IconButton>
+                                </InputAdornment>
+                              }
+                            onChange={(e)=>setCpass(e.target.value)}
+                            ></TextField>
+                            
+                            <Typography style={{padding:"2em 0 1em 0"}}>
+                            <FormGroup column>
+                             <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={state.checkedA}
+                                  onChange={handleChange}
+                                  name="checkedA"
+                                  color="primary"
+                                />
+                              }
+                              label="Sign up as an expert."
+                            />
+                            </FormGroup>
+                                Already have an account? <Link to="/login" style={{color:"#4caf50",cursor:"pointer",textDecoration:"none"}}>Log In</Link> here.
+                            </Typography>
+                        <Button color="primary" style={{color:"#fff",margin:"1em 0em",width:"100%"}} variant="contained" onClick={handleSignup}>
+                            {
+                                    loading2?<CircularProgress size={24} color="secondary"></CircularProgress>:"Sign up"
+                            }
+                            {
+                                userInfo2&&<Redirect to="/login"></Redirect>
+                            }
+                        </Button>
             </Grid>
           </form>
         </Grid>

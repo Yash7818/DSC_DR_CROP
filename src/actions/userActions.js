@@ -29,7 +29,7 @@ const update = ({ userId, name, email, password, fd }) => async (
   });
   try {
     const { data } = await Axios.put(
-      "https://dr-crop-backend.azurewebsites.net/api/users/" + userId,
+      "/api/users/" + userId,
       { name, email, password, fd },
       {
         headers: {
@@ -53,7 +53,7 @@ const signin = (email, password) => async (dispatch) => {
     const {
       data,
     } = await Axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/users/login",
+      "/api/users/login",
       { email, password }
     );
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
@@ -69,7 +69,7 @@ const register = (name, email, password) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/users/register",
+      "/api/users/register",
       {
         name,
         email,
@@ -90,7 +90,7 @@ const googleauth = (tokenId) => async (dispatch) => {
   });
   try {
     const { data } = await Axios.post(
-      "https://dr-crop-backend.azurewebsites.net/api/users/googlelogin",
+      "/api/users/googlelogin",
       {
         tokenId,
       }

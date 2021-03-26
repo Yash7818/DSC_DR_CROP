@@ -13,11 +13,11 @@ import {
 function expertSigninReducer(state = {}, action) {
   switch (action.type) {
     case EXPERT_SIGNIN_REQUEST:
-      return { loading: true };
+      return { loading3: true };
     case EXPERT_SIGNIN_SUCCESS:
-      return { loading: false, expertInfo: action.payload };
+      return { loading3: false, expertInfo: action.payload };
     case EXPERT_SIGNIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading3: false, error3: action.payload };
     default:
       return state;
   }
@@ -26,11 +26,11 @@ function expertSigninReducer(state = {}, action) {
 function expertRegisterReducer(state = {}, action) {
   switch (action.type) {
     case EXPERT_REGISTER_REQUEST:
-      return { loading: true };
+      return { loading4: true };
     case EXPERT_REGISTER_SUCCESS:
-      return { loading: false, expertInfo: action.payload };
+      return { loading4: false, expertInfo: action.payload };
     case EXPERT_REGISTER_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading4: false, error4: action.payload };
     default:
       return state;
   }
