@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 const { ObjectId } = mongoose.Schema.Types;
 
 const requestSchema = new mongoose.Schema({
+  title:{
+    type:String,
+    required:true,
+  },
   medium: {
     type: String,
     required: true,
@@ -18,8 +22,8 @@ const requestSchema = new mongoose.Schema({
     required: true,
   },
   status: {
-    type: String,
-    default: "incomplete",
+    type: Boolean,
+    default:false,
   },
   requestedBy: {
     type: ObjectId,

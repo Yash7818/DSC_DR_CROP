@@ -17,6 +17,10 @@ import Select from '@material-ui/core/Select';
 import {makeStyles,createMuiTheme,ThemeProvider, withStyles} from '@material-ui/core/styles';
 
 import NavBar from '../../components/Navbar';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveRequest } from '../../actions/requestActions';
+import { CircularProgress } from '@material-ui/core';
+import { Redirect } from 'react-router';
 
 const useStyles = makeStyles(()=>({
     main:{
@@ -87,13 +91,25 @@ function ExpForm(props){
     const [desc,setDesc] = useState('');
     const [med,setMed] = useState('');
     const [lang,setLang] = useState('');
+    const dispatch = useDispatch();
     const {classes} = props;
 
+    const userSignin = useSelector(state=>state.userSignin);
+    const {loading,userInfo,error} = userSignin;
+    const requestSave = useSelector(state=>state.requestSave);
+    const {loading12,query,error12} = requestSave;
+    
     const handleChange = (event) => {
         setLang(event.target.value);
     };
     const handleChangeMed = (event) =>{
         setMed(event.target.value);
+    }
+
+    const handleSubmit = () => {
+        dispatch(saveRequest({title:title,medium:med,language:lang,content:desc,mediumLink:`/${userInfo.name}`}));
+        console.log(title);
+        console.log(query);
     }
     return(
         <>
@@ -177,8 +193,10 @@ function ExpForm(props){
                             </Select>
                             <FormHelperText>Select a medium of communication.</FormHelperText>
                         </FormControl>
-                        <Button color="primary" style={{color:"#fff",margin:"1em 0em"}} variant="contained">Submit</Button>
-
+                        <Button color="primary" style={{color:"#fff",margin:"1em 0em"}} variant="contained" onClick={handleSubmit}>{loading12?<CircularProgress size={24}></CircularProgress>:"Submit"}</Button>
+                            {/* {
+                                query&&<Redirect to="/userprofile"></Redirect>
+                            } */}
                         </Grid>
                     </form>
                 </Grid>

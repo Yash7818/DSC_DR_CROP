@@ -16,17 +16,19 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Select from '@material-ui/core/Select';
 import {makeStyles,createMuiTheme,ThemeProvider, withStyles} from '@material-ui/core/styles';
-
+import Switch from '@material-ui/core/Switch';
 import NavBar from '../../components/Navbar';
 import { Link,Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { googleauth, register, signin } from '../../actions/userActions';
+import { loginExpert } from '../../actions/expertActions';
+import { FormGroup } from '@material-ui/core';
 
 const useStyles = makeStyles(()=>({
     main:{
@@ -98,10 +100,19 @@ function LogIn(props){
         password:'',
         showPassword:false
     })
+    const [state, setState] = useState({
+      checkedA: false,
+    });
+  
+    const handleChange = (event) => {
+      setState({ ...state, [event.target.name]: event.target.checked });
+    };
     const dispatch = useDispatch();
     const {classes} = props;
     const userSignin = useSelector(state => state.userSignin);
     const { loading, userInfo, error } = userSignin;
+    const expertSignin = useSelector(state=>state.expertSignin);
+    const {loading3,expertInfo,error3} = expertSignin;
 
     const handleClickShowPassword = () => {
         setPass({ ...pass, showPassword: !pass.showPassword });
@@ -112,7 +123,12 @@ function LogIn(props){
     };
 
     const handleSignin = () =>{
+      if(state.checkedA){
+        dispatch(loginExpert(email,pass.password));
+      }
+      else{
         dispatch(signin(email,pass.password));
+      }
     }
 
     const responseSuccessGoogle = (response) => {
@@ -159,7 +175,7 @@ function LogIn(props){
                                     input: classes.input
                                 }
                             }}
-                            helperText="Email which was used to register."
+                            helperText={error?error:"Email which was used to register."}
                             FormHelperTextProps={{
                                 classes:{
                                     error: classes.error
@@ -193,16 +209,34 @@ function LogIn(props){
                               }
                             onChange={(e)=>setPass({password:e.target.value})}
                             ></TextField>
-
+                            
+                          
                             <Typography style={{padding:"2em 0 1em 0"}}>
+                            <FormGroup column>
+                            <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={state.checkedA}
+                                  onChange={handleChange}
+                                  name="checkedA"
+                                  color="primary"
+                                />
+                              }
+                              label="Sign in as an expert."
+                            ></FormControlLabel>
+                            </FormGroup>
                                 Don't have an account? <Link to="/signup" style={{color:"#4caf50",cursor:"pointer",textDecoration:"none"}}>Sign Up</Link> here.
                             </Typography>
+                            
                         <Button color="primary" style={{color:"#fff",margin:"1em 0em",width:"100%",textAlign:"center"}} variant="contained" onClick={handleSignin}>
                             {
-                                loading?<CircularProgress size={24} color="secondary"></CircularProgress>: <div>Log In</div>
+                              loading||loading3?<CircularProgress size={24} color="secondary"></CircularProgress>: <div>Log In</div>
                             }
                             {
-                                 userInfo&&<Redirect to="/"></Redirect>
+                              userInfo&&<Redirect to="/userprofile"></Redirect>
+                            }
+                            {
+                              expertInfo&&<Redirect to="/expertprofile"></Redirect>
                             }
                         </Button>
 

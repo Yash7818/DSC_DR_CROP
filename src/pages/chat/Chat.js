@@ -24,7 +24,7 @@ const chatStyle = makeStyles({
   },
 });
 
-const ENDPOINT = "http://localhost:3000/";
+const ENDPOINT = "https://heuristic-fermi-97639a.netlify.app/";
 
 let socket;
 

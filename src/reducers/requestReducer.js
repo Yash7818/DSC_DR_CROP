@@ -13,23 +13,23 @@ import {
   REQ_UPDATE_ONE_FAIL,
 } from "../constants/requestConstants";
 
-function requestSaveReducer(state = { query: {} }, action) {
+function requestSaveReducer(state = {}, action) {
   switch (action.type) {
     case REQ_SAVE_REQUEST:
-      return { loading: true };
+      return { loading12: true };
     case REQ_SAVE_SUCCESS:
-      return { loading: false, query: action.payload };
+      return { loading12: false, query: action.payload };
     case REQ_SAVE_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading12: false, error12: action.payload };
     default:
       return state;
   }
 }
 
-function requestListReducer(state = { query: {} }, action) {
+function requestListReducer(state = {query: []}, action) {
   switch (action.type) {
     case REQ_LIST_REQUEST:
-      return { loading: true };
+      return { loading: true,query:[]};
     case REQ_LIST_SUCCESS:
       return { loading: false, query: action.payload };
     case REQ_LIST_FAIL:

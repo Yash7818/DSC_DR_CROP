@@ -12,6 +12,9 @@ import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import MenuItem from '@material-ui/core/MenuItem';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,6 +24,7 @@ import NavBar from '../../components/Navbar';
 import { Link,Redirect} from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { googleauth, register } from '../../actions/userActions';
+import { registerExpert } from '../../actions/expertActions';
 
 const useStyles = makeStyles(()=>({
     main:{
@@ -94,6 +98,13 @@ function SignUp(props){
         password:'',
         showPassword:false
     });
+    const [state, setState] = useState({
+      checkedA: false,
+    });
+  
+    const handleChange = (event) => {
+      setState({ ...state, [event.target.name]: event.target.checked });
+    };
     const dispatch = useDispatch();
     const {classes} = props;
     const userRegister = useSelector(state => state.userRegister);
@@ -108,7 +119,12 @@ function SignUp(props){
     };
 
     const handleSignup = () =>{
-        dispatch(register(username,email,pass.password))
+      if(state.checkedA){
+        dispatch(registerExpert(username,email,pass.password));
+      }
+      else{
+        dispatch(register(username,email,pass.password));
+      }
     }
     const responseSuccessGoogle = (response) => {
         console.log(response);
@@ -155,7 +171,7 @@ function SignUp(props){
                                     input: classes.input
                                 }
                             }}
-                            helperText="Choose some intresting username."
+                            helperText={"Choose some intresting username."}
                             FormHelperTextProps={{
                                 classes:{
                                     error: classes.error
@@ -174,6 +190,7 @@ function SignUp(props){
                                     input: classes.input
                                 }
                             }}
+                            helperText={error2&&error2}
                             FormHelperTextProps={{
                                 classes:{
                                     error: classes.error
@@ -234,7 +251,21 @@ function SignUp(props){
                               }
                             onChange={(e)=>setCpass(e.target.value)}
                             ></TextField>
+                            
                             <Typography style={{padding:"2em 0 1em 0"}}>
+                            <FormGroup column>
+                             <FormControlLabel
+                              control={
+                                <Switch
+                                  checked={state.checkedA}
+                                  onChange={handleChange}
+                                  name="checkedA"
+                                  color="primary"
+                                />
+                              }
+                              label="Sign up as an expert."
+                            />
+                            </FormGroup>
                                 Already have an account? <Link to="/login" style={{color:"#4caf50",cursor:"pointer",textDecoration:"none"}}>Log In</Link> here.
                             </Typography>
                         <Button color="primary" style={{color:"#fff",margin:"1em 0em",width:"100%"}} variant="contained" onClick={handleSignup}>

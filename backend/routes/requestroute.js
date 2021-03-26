@@ -6,6 +6,7 @@ const router = express.Router();
 router.post("/sendrequest", isAuth, async (req, res) => {
   try {
     const request = new Request({
+      title:req.body.title,
       medium: req.body.medium,
       mediumLink: req.body.mediumLink,
       content: req.body.content,
@@ -33,7 +34,7 @@ router.post("/sendrequest", isAuth, async (req, res) => {
 router.get("/getrequest", isAuth, async (req, res) => {
   try {
     const allrequest = await Request.find({
-      status: "incompleted",
+      status:false,
     });
     console.log(allrequest);
     if (allrequest) {

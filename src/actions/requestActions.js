@@ -1,3 +1,4 @@
+import Cookie from "js-cookie";
 import {
   REQ_SAVE_REQUEST,
   REQ_SAVE_SUCCESS,
@@ -31,18 +32,21 @@ const saveRequest = (query) => async (dispatch, getstate) => {
   }
 };
 
-const listRequest = () => async (dispatch, getstate) => {
+const listRequest = () => async(dispatch, getstate) => {
   try {
     dispatch({ type: REQ_LIST_REQUEST });
     const {
       expertSignin: { expertInfo },
     } = getstate();
-    const { data } = await axios.get("/api/request/getrequest", {
+    const {data}  = await axios.get("/api/request/getrequest", {
       headers: {
         Authorization: "Bearer " + expertInfo.token,
       },
+    }).then((res)=>{
+      console.log(res.data)
+      dispatch({ type: REQ_LIST_SUCCESS, payload:res.data });
+      return res.data;
     });
-    dispatch({ type: REQ_LIST_SUCCESS, payload: data });
   } catch (e) {
     dispatch({ type: REQ_LIST_FAIL, payload: e });
   }

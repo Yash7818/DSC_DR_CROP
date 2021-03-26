@@ -49,7 +49,7 @@
   },
   "scripts": {
     "front": "react-scripts start",
-    "start": "nodemon --watch backend --exec babel-node server.js",
+    "start": "nodemon --watch backend --exec babel-node ./backend/server.js",
     "dev": "concurrently \"npm start\" \"npm run front\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
