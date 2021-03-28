@@ -16,15 +16,16 @@ const chatStyle = makeStyles({
   root: {
     height: "100%",
     width: "100%",
+    paddingTop:"5em"
   },
   innerContainer: {
-    backgroundColor: "#FFFFF",
+    overflow:"scroll",
     height: "100%",
     width: "100%",
   },
 });
 
-const ENDPOINT = "https://heuristic-fermi-97639a.netlify.app/";
+const ENDPOINT = "http://localhost:5000/";
 
 let socket;
 

@@ -24,7 +24,7 @@ const messageStyle = makeStyles({
     color: "white",
     display: "inline-block",
     maxWidth: "80%",
-    background: "#2979FF",
+    background: "#00DB3D",
   },
   messageSendText: {
     width: "100%",
@@ -40,7 +40,7 @@ const messageStyle = makeStyles({
     margin: "5px 0",
     color: "white",
     display: "inline-block",
-    maxWidth: "80%",
+    maxWidth: "90%",
     background: "#F3F3F3",
   },
   messageRecieveText: {
@@ -80,9 +80,6 @@ const Message = ({ message: { text, user }, name }) => {
       alignItems="center"
       className={classes.root}
     >
-      <Typography component="p" className={classes.sendText}>
-        {trimedName}
-      </Typography>
       <Typography component="div" className={classes.messageSendBox}>
         <Typography component="p" className={classes.messageSendText}>
           {ReactEmoji.emojify(text)}
@@ -100,9 +97,6 @@ const Message = ({ message: { text, user }, name }) => {
         <Typography component="p" className={classes.messageRecieveText}>
           {ReactEmoji.emojify(text)}
         </Typography>
-      </Typography>
-      <Typography component="p" className={classes.recieveText}>
-        {user}
       </Typography>
     </Grid>
   );

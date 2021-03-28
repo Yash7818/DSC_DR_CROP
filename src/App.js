@@ -5,6 +5,7 @@ import LogIn from "./pages/auth/Login";
 import SignUp from "./pages/auth/Signup";
 import UserProfile from "./pages/UserProfile/userProfile";
 import ExpertProfile from './pages/expertProfile/expertProfile';
+import UserRequest from './pages/userrequests/userRequest';
 import CropDisplay from "./pages/Crop/cropDisplay";
 import DisForm from "./pages/Disease/disForm";
 import ExpForm from "./pages/Expert/ExpForm";
@@ -19,6 +20,7 @@ function App() {
         <Route path="/signup" exact={true} component={SignUp}></Route>
         <Route path="/userprofile" exact={true} component={UserProfile}></Route>
         <Route path="/expertprofile" exact={true} component={ExpertProfile}></Route>
+        <Route path="/requests" exact={true} component={UserRequest}></Route>
         <Route path="/cropdisplay" exact={true} component={CropDisplay}></Route>
         <Route path="/disform" exact={true} component={DisForm}></Route>
         <Route path="/expform" exact={true} component={ExpForm}></Route>

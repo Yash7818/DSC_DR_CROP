@@ -28,7 +28,7 @@ function expertRegisterReducer(state = {}, action) {
     case EXPERT_REGISTER_REQUEST:
       return { loading4: true };
     case EXPERT_REGISTER_SUCCESS:
-      return { loading4: false, expertInfo: action.payload };
+      return { loading4: false, expertInfo4: action.payload };
     case EXPERT_REGISTER_FAIL:
       return { loading4: false, error4: action.payload };
     default:
