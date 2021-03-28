@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { v4 as uuidv4 } from "uuid";
+import {uuid} from "uuidv4";
 
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -67,7 +67,7 @@ const styles = {
   },
   main: {
     width: "100%",
-    padding: "3em 1em",
+    padding: "5em 1em",
     color: "#fff",
     letterSpacing: "3px",
   },
@@ -95,6 +95,7 @@ function ExpForm(props){
     const [desc,setDesc] = useState('');
     const [med,setMed] = useState('');
     const [lang,setLang] = useState('');
+    const [que,setQue] = useState('');
     const dispatch = useDispatch();
     const {classes} = props;
 
@@ -102,7 +103,7 @@ function ExpForm(props){
     const {loading,userInfo,error} = userSignin;
     const requestSave = useSelector(state=>state.requestSave);
     const {loading12,query,error12} = requestSave;
-    
+
     const handleChange = (event) => {
         setLang(event.target.value);
     };
@@ -111,10 +112,17 @@ function ExpForm(props){
     }
 
     const handleSubmit = () => {
-        dispatch(saveRequest({title:title,medium:med,language:lang,content:desc,mediumLink:`/${userInfo.name}`}));
+        const id = uuid();
+        dispatch(saveRequest({title:title,medium:med,language:lang,content:desc,mediumLink:id}));
         console.log(title);
         console.log(query);
+        console.log(id);
+        setQue(query);
     }
+
+    useEffect(()=>{
+
+    },[query])
     return(
         <>
             <ThemeProvider theme={theme}>
@@ -194,13 +202,14 @@ function ExpForm(props){
                             </MenuItem>
                             <MenuItem value={"Video Chat"}>Video Chat</MenuItem>
                             <MenuItem value={"Voice Chat"}>Voice Chat</MenuItem>
+                            <MenuItem value={"Text Chat"}>Text Chat</MenuItem>
                             </Select>
                             <FormHelperText>Select a medium of communication.</FormHelperText>
                         </FormControl>
-                        <Button color="primary" style={{color:"#fff",margin:"1em 0em"}} variant="contained" onClick={handleSubmit}>{loading12?<CircularProgress size={24}></CircularProgress>:"Submit"}</Button>
-                            {/* {
-                                query&&<Redirect to="/userprofile"></Redirect>
-                            } */}
+                        <Button color="primary" style={{color:"#fff",margin:"1em 0em"}} variant="contained" onClick={handleSubmit}>{loading12?<CircularProgress color="primary" size={24}></CircularProgress>:"Submit"}</Button>
+                            {
+                                que===query&&<Redirect to="/userprofile"></Redirect>
+                            }
                         </Grid>
                     </form>
                 </Grid>

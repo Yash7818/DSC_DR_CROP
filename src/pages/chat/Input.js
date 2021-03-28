@@ -2,6 +2,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from "@material-ui/core/styles";
 import SendIcon from "@material-ui/icons/Send";
 import {ThemeProvider,createMuiTheme} from '@material-ui/core/styles';
@@ -53,10 +54,15 @@ const styles = {
 const inputStyle = makeStyles({
   root: {
     display: "flex",
+    position:"fixed",
+    bottom:"1.5em",
+    top:"auto",
+    width:"100%"
   },
   input: {
     "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white"
+      borderColor: "white",
+      border:"2px solid #fff"
     },
     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
       borderColor: "#4caf50"
@@ -67,16 +73,24 @@ const inputStyle = makeStyles({
     "&.MuiFormHelperText-root.Mui-error" :{
       color: "white",
     },
-    padding: "15px",
-    width: "100%",
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderRadius: `2em`,
+      },
+    },
+    margin: "5px",
+    borderRadius:"2em",
+    flexGrow:"1"
   },
   text:{
     color:"#fff"
   },
   button: {
+    flex:"0 1 auto",
     margin: "5px",
-    padding: "5px",
-    width: "75px",
+    width:"2.4em",
+    height:"2.4em",
+    background:"#fff",
   },
 });
 
@@ -87,7 +101,8 @@ const Input = ({ setMessage, sendMessage, message }) => {
     <Typography component="form" className={classes.root}>
       <TextField
         id="standard-basic"
-        placeholder="Type Your Message"
+        placeholder="Type a message..."
+        variant="outlined"
         value={message}
         onChange={({ target: { value } }) => setMessage(value)}
         onKeyPress={(event) =>
@@ -101,13 +116,13 @@ const Input = ({ setMessage, sendMessage, message }) => {
       }}
         color="secondary"
       />
-      <Button
+      <IconButton
         className={classes.button}
         color="primary"
         onClick={(e) => sendMessage(e)}
       >
         <SendIcon />
-      </Button>
+      </IconButton>
     </Typography>
     </ThemeProvider>
   );

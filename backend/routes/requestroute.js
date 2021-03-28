@@ -60,10 +60,12 @@ router.get("/getrequest/:id", isAuth, async (req, res) => {
 
 router.patch("/getrequest/:id", isAuth, async (req, res) => {
   try {
-    const reqid = req.params.id;
-    const partrequest = await Request.findById({ reqid });
+    const _id = req.params.id;
+    console.log(_id);
+    const partrequest = await Request.findById({ _id });
     if (partrequest) {
       const changestatus = req.body.status;
+      console.log(changestatus);
       partrequest.status = changestatus;
       const updatedRequest = await partrequest.save();
 

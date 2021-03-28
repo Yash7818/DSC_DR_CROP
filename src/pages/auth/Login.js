@@ -75,7 +75,7 @@ const styles = {
   },
   main: {
     width: "100%",
-    padding: "3em 1em",
+    padding: "5em 1em",
     color: "#fff",
     letterSpacing: "3px",
   },
@@ -245,41 +245,7 @@ function LogIn(props){
                             }
                         </Button>
 
-              <Typography style={{ padding: "2em 0 1em 0" }}>
-                Don't have an account?{" "}
-                <Link
-                  to="/signup"
-                  style={{
-                    color: "#4caf50",
-                    cursor: "pointer",
-                    textDecoration: "none",
-                  }}
-                >
-                  Sign Up
-                </Link>{" "}
-                here.
-              </Typography>
-              <Button
-                color="primary"
-                style={{
-                  color: "#fff",
-                  margin: "1em 0em",
-                  width: "100%",
-                  textAlign: "center",
-                }}
-                variant="contained"
-                onClick={handleSignin}
-              >
-                {loading ? (
-                  <CircularProgress
-                    size={24}
-                    color="secondary"
-                  ></CircularProgress>
-                ) : (
-                  <div>Log In</div>
-                )}
-                {userInfo && <Redirect to="/"></Redirect>}
-              </Button>
+             
             </Grid>
           </form>
         </Grid>

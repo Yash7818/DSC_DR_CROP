@@ -33,6 +33,9 @@ const theme = createMuiTheme({
 const useStyles = makeStyles((theme)=>({
     root:{
         flexGrow:1,
+        zIndex:"100",position:"fixed",
+        width:"100vw",
+        top:"0em"
     },
     butdiv:{
         flexGrow:1,
@@ -42,7 +45,8 @@ const useStyles = makeStyles((theme)=>({
     },
     title:{
         fontWeight:"700",
-        marginRight:theme.spacing(2)
+        marginRight:theme.spacing(2),
+      
     },
     paper:{
         background:"rgba(1,1,1,0.9)",
@@ -110,6 +114,7 @@ return(
                                 <Link to="/" style={{textDecoration:"none"}}><MenuItem className={classes.menuitem} onClick={handleClose}>About Us</MenuItem></Link>
                                { userInfo&&<div>
                                 <Link to="/userprofile" style={{textDecoration:"none"}}><MenuItem className={classes.menuitem}  onClick={handleClose}>Profile</MenuItem></Link>
+                                <Link to="/requests" style={{textDecoration:"none"}}><MenuItem className={classes.menuitem}  onClick={handleClose}>Requests</MenuItem></Link>
                                 <MenuItem style={{color:"red"}} className={classes.menuitem} onClick={handleLogout}>Logout</MenuItem>
                                 </div>
                                 }
