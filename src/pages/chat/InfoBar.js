@@ -12,7 +12,8 @@ const infoStyle = makeStyles({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    background: "#2979FF",
+    // background: "#00DB3D",
+    padding:".5em"
   },
   leftSide: {
     flex: "0.5",
@@ -49,11 +50,6 @@ const InfoBar = ({ room }) => {
       <Typography component="div" className={classes.leftSide}>
         <Brightness1RoundedIcon className={classes.onlineIcon} />
         <h3>{room}</h3>
-      </Typography>
-      <Typography component="div" className={classes.rightSide}>
-        <a href="/">
-          <CloseIcon className={classes.closeIcon} />
-        </a>
       </Typography>
     </Grid>
   );

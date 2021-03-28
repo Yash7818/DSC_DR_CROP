@@ -43,7 +43,7 @@ function Home(){
         <div>
             <ThemeProvider theme={theme}>
             <NavBar />
-            <Grid container item direction="column" style={{padding:"4em 0"}}>
+            <Grid container item direction="column" style={{padding:"6em 0"}}>
                 <Grid>
                     <img alt="" src="https://res.cloudinary.com/marcos-yash/image/upload/v1612933591/home_dig_wrtus2.png" style={{maxWidth:"20em"}}></img>
                 </Grid>

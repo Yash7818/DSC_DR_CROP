@@ -70,7 +70,7 @@ const styles = {
   },
   main: {
     width: "100%",
-    padding: "3em 1em",
+    padding: "5em 1em",
     color: "#fff",
     letterSpacing: "3px",
   },
@@ -112,6 +112,8 @@ function SignUp(props){
     const {classes} = props;
     const userRegister = useSelector(state => state.userRegister);
     const { loading2,userInfo2,error2 } = userRegister;
+    const expertRegister = useSelector(state=>state.expertRegister);
+    const {loading4,expertInfo4,error4} = expertRegister;
 
   const handleClickShowPassword = () => {
     setPass({ ...pass, showPassword: !pass.showPassword });
@@ -273,10 +275,13 @@ function SignUp(props){
                             </Typography>
                         <Button color="primary" style={{color:"#fff",margin:"1em 0em",width:"100%"}} variant="contained" onClick={handleSignup}>
                             {
-                                    loading2?<CircularProgress size={24} color="secondary"></CircularProgress>:"Sign up"
+                              loading2||loading4?<CircularProgress size={24} color="secondary"></CircularProgress>:"Sign up"
                             }
                             {
-                                userInfo2&&<Redirect to="/login"></Redirect>
+                              userInfo2&&<Redirect to="/login"></Redirect>
+                            }
+                            {
+                              expertInfo4&&<Redirect to="/login"></Redirect>
                             }
                         </Button>
             </Grid>

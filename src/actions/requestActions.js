@@ -78,7 +78,7 @@ const listOneRequest = (requestId) => async (dispatch, getstate) => {
   }
 };
 
-const updateOneRequest = (requestId) => async (dispatch, getstate) => {
+const updateOneRequest = (requestId,status) => async (dispatch, getstate) => {
   try {
     dispatch({ type: REQ_UPDATE_ONE_REQUEST });
     const {
@@ -87,6 +87,9 @@ const updateOneRequest = (requestId) => async (dispatch, getstate) => {
     const { data } = await axios.patch(
       "/api/request/getrequest/" +
         requestId,
+        {
+          status
+        },
       {
         headers: {
           Authorization: "Bearer " + expertInfo.token,

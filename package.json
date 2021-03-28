@@ -37,6 +37,7 @@
     "socket.io": "^4.0.0",
     "socket.io-client": "^4.0.0",
     "uuid": "^8.3.2",
+    "uuidv4": "^6.2.7",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.3",
     "workbox-broadcast-update": "^5.1.3",

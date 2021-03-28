@@ -42,7 +42,8 @@ const useStyles = makeStyles((theme)=>({
     },
     avatar:{
         height:theme.spacing(20),
-        width:theme.spacing(20)
+        width:theme.spacing(20),
+        background:"#fff"
     },
     butarea:{
         border:"2px solid #fff",
@@ -74,7 +75,7 @@ export default function UserProfile() {
                    }}
                    badgeContent={<IconButton style={{background:"#4caf50"}}><CreateIcon /></IconButton>}
                    >
-                     <Avatar className={classes.avatar}></Avatar>
+                     <Avatar className={classes.avatar} src="https://res.cloudinary.com/marcos-yash/image/upload/v1616877820/avatar1_kijavl_iopsya.png"></Avatar>
                      </Badge>
                 <Typography align="center" style={{color:"#fff",fontSize:"1.5em",marginTop:"1em"}}>
                     @{userInfo.name}
