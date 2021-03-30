@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme)=>({
 
 export default function ExpertProfile() {
     const [data1,setData] = useState([]);
+    const [stat,setStat] = useState(null);
     const classes  = useStyles();
     const dispatch = useDispatch();
     const expertSignin = useSelector(state=>state.expertSignin);
@@ -79,6 +80,7 @@ export default function ExpertProfile() {
     console.log(data);
     if (data) {
       setData(data);
+
     }
   }, [data1]);
 
@@ -110,7 +112,7 @@ export default function ExpertProfile() {
                     Requests
                 </Typography>
                 <Grid container item style={{padding:"1em",color:"#fff"}} >
-                
+                    
                     {data1.length>0?data1.map((item,index)=>(<Grid key={index} item container direction="column" className={classes.butarea}>
                         <Grid>
                         <Grid item container  >

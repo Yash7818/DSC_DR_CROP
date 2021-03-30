@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from "prop-types";
 import axios from 'axios';
 
 import Grid from '@material-ui/core/Grid';
@@ -11,7 +12,7 @@ import FormHelperText from '@material-ui/core/FormHelperText'
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles,createMuiTheme,ThemeProvider} from '@material-ui/core/styles';
+import {makeStyles,createMuiTheme,ThemeProvider,withStyles} from '@material-ui/core/styles';
 
 
 
@@ -23,7 +24,7 @@ import { Redirect } from 'react-router';
 const useStyles = makeStyles(()=>({
     main:{
         width:"100%",
-        padding:"3em 1em",
+        padding:"5em 1em",
         color:"#fff",
     },
     formControl:{
@@ -83,17 +84,53 @@ const theme = createMuiTheme({
       }
 })
 
-export default function DisForm(){
+const styles = {
+  root: {
+    "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+      borderColor: "white",
+    },
+    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+      borderColor: "#4caf50",
+    },
+    "& .MuiInputLabel-outlined": {
+      color: "white",
+    },
+    "&.MuiFormHelperText-root.Mui-error": {
+      color: "white",
+    },
+    background: "transperent",
+    margin: "1em 0em",
+  },
+  main: {
+    width: "100%",
+    padding: "7em 1em",
+    color: "#fff",
+    letterSpacing: "3px",
+  },
+  input: {
+    color: "#fff",
+  },
+  error: {
+    color: "#fff",
+  },
+  formele:{
+    padding:"2em 1em",
+    textAlign:"center"
+  },
+};
+
+function DisForm(props){
     const [open1,setOpen1] = useState(false);
     const [cname,setCname] = useState(null);
     const [upload,setUpload] = useState(false);
+    const [cha,setCha] = useState(null);
     const [dis,setDis] = useState(null);
     const [sol,setSol] = useState(null);
-    const classes = useStyles();
+    const [loading,setLoad] = useState(false);
+    const {classes} = props;
     const dispatch = useDispatch();
 
-    const cropSave = useSelector(state=>state.cropSave);
-    const {loading,crop,error} = cropSave;
+    
     const {isDragActive,getRootProps, getInputProps, open, acceptedFiles} = useDropzone({
       noClick: true,
       noKeyboard: true,
@@ -106,6 +143,7 @@ export default function DisForm(){
      ));
     const uploadPhoto = (e) =>{
       e.preventDefault();
+      setLoad(true);
       const formdata = new FormData();
       console.log(acceptedFiles[0]);
       formdata.append("file",acceptedFiles[0]);
@@ -119,7 +157,9 @@ export default function DisForm(){
         console.log(res.data.secure_url.slice(52,res.data.secure_url.length));
         axios.get(`https://river-runner-307504.el.r.appspot.com/predict/${cname}/${res.data.secure_url.slice(52,res.data.secure_url.length)}`)
         .then(rs=>{
-          console.log(rs.data);
+          console.log(rs.data); 
+          const chances = Math.floor(rs.data.Chances);
+          setCha(chances);
           setDis(rs.data.Status);
           setSol(rs.data.Remedy);
           dispatch(saveCrop({imgLink:res.data.secure_url,diseaseName:rs.data.Status,solution:rs.data.Remedy}));
@@ -147,7 +187,7 @@ export default function DisForm(){
       else{
         setUpload(false);
       }
-    },[acceptedFiles])
+    },[acceptedFiles,cha])
     return(
         <div>
             <ThemeProvider theme={theme}>
@@ -158,7 +198,7 @@ export default function DisForm(){
             </Typography>
             <form>
                 <Grid container item className={classes.formele}>
-                    <FormControl variant="outlined" className={classes.formControl}>
+                    <FormControl variant="outlined" className={classes.root} style={{width:"100%",color:"#fff"}}>
                         <InputLabel id="demo-simple-select-outlined-label">Crop Name</InputLabel>
                         <Select
                         labelId="demo-simple-select-outlined-label"
@@ -168,15 +208,8 @@ export default function DisForm(){
                         onOpen={handleOpen}
                         value={cname}
                         onChange={handleChange}
-                        style={{width:"100%",color:"#fff"}}
-                        className={classes.root}
-                        InputProps={{
-                          classes:{
-                            className: classes.input
-                          }
-                        }}
+                        style={{color:"#fff"}}
                         >
-                        <FormHelperText>Select the name of the infected crop</FormHelperText>
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
@@ -186,23 +219,26 @@ export default function DisForm(){
                         <MenuItem value={"Tomato"}>Tomato</MenuItem>
                         <MenuItem value={"Corn"}>Corn</MenuItem>
                         </Select>
+                        <FormHelperText style={{color:"#fff"}}>Select the name of the infected crop</FormHelperText>
                     </FormControl>
                 </Grid>
+                <hr style={{borderColor:"#fff"}}></hr>
                 <Grid container item direction="column" className={classes.formele}>
                     <Typography style={{padding:"1em 0"}} variant="h6">Upload image of infected crop</Typography>
                 <Grid  {...getRootProps({className:'dropzone',isDragActive})}>
-                    <Button
+                   { !upload&&<Button
                     variant="contained"
                     component="label"
                     color="primary"
                     style={{color:"#fff"}}
-                    onClick={open} 
+                    onClick={open} y
+                    
                     >
                     Upload Photo
                     <input
                        {...getInputProps()} 
                     />
-                    </Button>
+                    </Button>}
                 </Grid>
                 {upload&&<Grid container item direction="column" style={{border:"1px solid #fff",borderRadius:"1em",padding:"1em",margin:"2em 0em"}}>
                   {files}
@@ -216,7 +252,7 @@ export default function DisForm(){
                   </Grid>
                 </Grid>}
                     {
-                      sol&&<Redirect to={"/cropdisplay?name="+cname+"&dis="+dis+"&sol="+sol}/>
+                      sol&&<Redirect to={"/cropdisplay?name="+cname+"&dis="+dis+"&sol="+sol+"&chances="+cha}/>
                     }
               </Grid>
             </form>
@@ -225,3 +261,10 @@ export default function DisForm(){
         </div>
     );
 }
+
+
+DisForm.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(DisForm);
