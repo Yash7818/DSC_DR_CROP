@@ -1,5 +1,6 @@
 # DR_CROP
-  by **TEAM S.A.Y.**
+
+by **TEAM S.A.Y.**
 
 ## UN GOAL:- ZERO HUNGER
 
@@ -9,11 +10,13 @@
 - This is Progressive Web App so the Application is available on web as well as mobile as PWA irrespective if it is android or IOS giving the software cross platform availability.
 
 <p align="center">
-  <img src="img1.png" height="450px" width="700px" /> 
-  <img src="img2.png" height="450px" width="700px" />
-  <img src="img3.png" height="450px" width="700px" />
-  <img src="img4.png" height="450px" width="700px" />
-  <img src="Screenshot (644).png" height="450px" width="700px" />
+  <img src="img1.jpeg" height="450px" width="700px" /> 
+  <img src="img2.jpeg" height="450px" width="700px" />
+  <img src="img3.jpeg" height="450px" width="700px" />
+  <img src="img7.jpeg" height="450px" width="700px" />
+  <img src="img4.jpeg" height="450px" width="700px" />
+  <img src="img5.jpeg" height="450px" width="700px" />
+  <img src="img6.jpeg" height="450px" width="700px" />
 </p>
 
 ## PROBLEMS SOLVED:
@@ -23,6 +26,7 @@
 - Creating a new front of Employment on Experts in field of agriculture as demands of experts would increase.
 
 ## TECH STACK:
+
 - Frontend: React JS, HTML, CSS, Redux.
 - Backend: Node JS, Express JS, MongoDB.
 - ML Model: TensorFlow, Keras, CNN, Flask.
@@ -35,6 +39,7 @@
 - Language suport for different languages could also be added.
 
 ## MADE BY:
-  - Ashutosh Thakur
-  - Yash Wandhare
-  - Saksham Gupta
+
+- Ashutosh Thakur
+- Yash Wandhare
+- Saksham Gupta
