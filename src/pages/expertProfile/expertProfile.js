@@ -61,6 +61,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ExpertProfile() {
   const [data1, setData] = useState([]);
+  const [stat, setStat] = useState(null);
   const classes = useStyles();
   const dispatch = useDispatch();
   const expertSignin = useSelector((state) => state.expertSignin);
